@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "602531975772",
+    "project_id": "trimtaste",
+    "storage_bucket": "trimtaste.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:602531975772:android:4f9a41c37cd18bbdf20c99",
+        "android_client_info": {
+          "package_name": "com.example.trimtaste"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "602531975772-913o2t8ffvbtn1s4uj0i4ccjse3gilvr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAF9THZsda3bmOAvooRuVCAr6fkUe46-5s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "602531975772-913o2t8ffvbtn1s4uj0i4ccjse3gilvr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

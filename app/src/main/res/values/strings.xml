@@ -1,0 +1,133 @@
+<resources>
+    <string name="app_name">TrimTaste</string>
+    <string name="btnLogin">Login</string>
+    <string name="btnSignUp">Sign Up</string>
+    <string name="txtYet">Don\'t have an account yet?</string>
+    <string name="imgDes">TrimTaste Logo Image</string>
+    <string name="hintUsername">Username</string>
+    <string name="hintPassword">Password</string>
+    <string name="txtLogin">LOGIN</string>
+    <string name="txtCreate">Create Account</string>
+    <string name="hintStAddress">Street address</string>
+    <string name="hintCity">City</string>
+    <string name="hintPostalCode">Postal code</string>
+    <string name="hint">Phone number</string>
+    <string name="hintEmail">Email address</string>
+    <string name="promptProvince">Province</string>
+    <string name="hintSearch">Enter the city to search for</string>
+    <string name="btnFind">Go</string>
+    <string name="txtFindARes">Find A Restaurant</string>
+    <string name="txtReduce">Reduce Food Waste &amp; Enjoy Your Meal!</string>
+    <string name="conDesSearch">Image button Search</string>
+    <string name="conDesFood">Image button Order Food</string>
+    <string name="ConDesDetails">Image Button View an order details</string>
+    <string name="ConDesHistory">Image Button Order History</string>
+    <string name="ConDesProfile">Image Button View/Edit User profile</string>
+    <string name="ConDesLogout">Image Button Order Log out</string>
+    <string name="txtAdminHome">Reduce Food Waste in Your Restaurant</string>
+    <string name="conDesRes">A restaurant image</string>
+    <string name="btnConfirm"><![CDATA[Confirm Your Order  >]]></string>
+    <string name="txtAvailItems">Available Items</string>
+    <string name="checkBoxAddItem">Add to Order</string>
+    <string name="txtConfirmYourOrder">Confirm Your Order</string>
+    <string name="conDesBtnBack">Back Button</string>
+    <string name="txtItems">Selected Items</string>
+    <string name="txtChooseAnOption">Choose an option</string>
+    <string name="btnPlaceOrder">Place Order</string>
+    <string name="rBtnPickup">Pick-up</string>
+    <string name="rBtnDelivery">Delivery</string>
+    <string name="txtTotal">Total :</string>
+    <string name="txtAddRemItems">Add/Remove Food Items</string>
+    <string name="txtFoodItemList">Food Item List</string>
+    <string name="btnAddItems"> + Add more items</string>
+    <string name="txtViewEditFoodOrders">View/Edit Food Orders</string>
+    <string name="btnEdit">Edit</string>
+    <string name="btnRemoveFoodIem">Remove</string>
+    <string name="searchBarHint">Enter the city to search for</string>
+    <string name="btnSignManager">Sign Up as a Manager</string>
+    <string name="btnaddorremove">Add/Remove Food Items</string>
+    <string name="btnVieworEdit">View/Edit Orders</string>
+    <string name="btnSendReminder">Send a Reminder</string>
+    <string name="btnGenerateReport">Generate Reports</string>
+    <string name="btnLogout">Log out</string>
+    <string name="txtTitle">Welcome To TrimTaste</string>
+    <string name="txtList">Items list</string>
+    <string name="images">An image</string>
+    <string name="orderName">Order details ans Status</string>
+    <string name="orderStatus">Order Status</string>
+    <string name="orderDetail">Order Details</string>
+    <string name="orderNumber">Order Number: 12345</string>
+    <string name="OrderCName">Customer Name: John Doe</string>
+    <string name="OrderRName">Restaurant Name: Burger King</string>
+    <string name="orderFName">Ordered Food:  Whopper, 2 Fries, 1 Coke</string>
+    <string name="orderPInfo">Payment Info: ****-****-****-1234</string>
+    <string name="orderstatus1">Order Status: Order receieved</string>
+    <string name="orderTotal">Total Amount: $23.50</string>
+    <string name="ordercxbDelievery">                  Delivered</string>
+    <string name="ordercbox1">                  Order Received</string>
+    <string name="ordercbox2">                  Order Placed</string>
+    <string name="ordercbox3">                  Out for Delivery</string>
+    <string name="historyName">Your Order History</string>
+    <string name="historyRName">Restaurant Name</string>
+    <string name="historyTPrice">Total Price: $10</string>
+    <string name="histoyTItem">Items: 3</string>
+    <string name="historyDItem">Details of Items: Item1, Itme2, Item3</string>
+    <string name="historyPickup">Pick up</string>
+    <string name="reminderName">Send a Reminder</string>
+    <string name="reONum">Order Number # </string>
+    <string name="reDate">2023-03-30 6:30pm</string>
+    <string name="reSend">Send Reminder</string>
+    <string name="reName">Generate Reports</string>
+    <string name="reportONum">Order Number: #</string>
+    <string name="reportDate">2023-05-05</string>
+    <string name="reportMethod">Receieving Method : pick up or delievery</string>
+    <string name="reportcname">Customer Information</string>
+    <string name="reportCNum">Customer #</string>
+    <string name="reportAddress">Address</string>
+    <string name="reportC1">Items</string>
+    <string name="reportC2">Quantity</string>
+    <string name="reprotQ">Price</string>
+    <string name="reportn1">1</string>
+    <string name="reportn2">Food item1</string>
+    <string name="reportn4">Food item2</string>
+    <string name="reportn5">Food item3</string>
+    <string name="reportP">$0</string>
+    <string name="reporttotal">Total:</string>
+    <string name="reminderline">|</string>
+    <string name="historyline">|</string>
+    <string name="btnSave">Save</string>
+    <string name="txtProfile">Profile</string>
+    <string name="hintProvince">Province</string>
+    <string name="btnBack">◀</string>
+    <string name="hintprofile1">Trim</string>
+    <string name="hintprofile2">700 Royal Ave</string>
+    <string name="hintprofile3">New Westminster</string>
+    <string name="hintprofile4">V3M 5Z5</string>
+    <string name="hintprofile5">604-527-5400</string>
+    <string name="hintprofile6">douglas@gmail.com</string>
+    <string name="hintprofile7">***************</string>
+    <string name="hintRePass">Re-Enter Password:</string>
+    <string name="promptUserRole">UserRole</string>
+    <string name="txtViewUserRole">User Role:</string>
+    <string-array name="groupProvince">
+        <item>AB</item>
+        <item>BC</item>
+        <item>MB</item>
+        <item>NB</item>
+        <item>NL</item>
+        <item>NT</item>
+        <item>NS</item>
+        <item>NU</item>
+        <item>ON</item>
+        <item>PE</item>
+        <item>QC</item>
+        <item>SK</item>
+        <item>YT</item>
+    </string-array>
+
+    <string-array name="userRole">
+        <item>Admin</item>
+        <item>Customer</item>
+    </string-array>
+
+</resources>

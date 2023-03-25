@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="380dp"
+        android:layout_height="120dp"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/mock_res1_item1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingStart="8sp"
+        android:paddingTop="8sp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="TextView"
+            android:textColor="@color/BasilGreen_800"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8sp"
+            android:text="TextView"
+            android:textSize="16sp"
+            android:textColor="@color/BasilGreen_800"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8sp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnEditFoodOrders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8sp"
+            android:background="@drawable/button_round"
+            android:backgroundTint="@color/BasilGreen_100"
+            android:text="@string/btnEdit"
+            android:textAllCaps="false"
+            android:textColor="@color/BasilGreen_800"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnRemoveFoodItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_round"
+            android:backgroundTint="@color/BasilGreen_800"
+            android:text="@string/btnRemoveFoodIem"
+            android:textAllCaps="false"
+            android:textColor="@color/background"
+            android:textSize="18sp" />
+    </LinearLayout>
+</LinearLayout>

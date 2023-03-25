@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <LinearLayout
+        android:layout_width="287dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8sp"
+        android:layout_marginBottom="8sp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4sp"
+            android:text="Order Number"
+            android:textColor="@color/BasilGreen_800"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="date time # of items"
+            android:textColor="@color/BasilGreen_800" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FoodItem list"
+            android:textColor="@color/BasilGreen_800" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4sp"
+            android:text="Delivery - Order Placed"
+            android:textColor="@color/BasilGreen_800" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnEditFoodOrders"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8sp"
+        android:background="@drawable/button_round"
+        android:backgroundTint="@color/BasilGreen_100"
+        android:minWidth="48dp"
+        android:text="@string/btnEdit"
+        android:textAllCaps="false"
+        android:textColor="@color/BasilGreen_800"
+        android:textSize="16sp" />
+
+</LinearLayout>
