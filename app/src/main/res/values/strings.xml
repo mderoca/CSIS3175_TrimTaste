@@ -71,7 +71,7 @@
     <string name="historyRName">Restaurant Name</string>
     <string name="historyTPrice">Total Price: $10</string>
     <string name="histoyTItem">Items: 3</string>
-    <string name="historyDItem">Details of Items: Item1, Itme2, Item3</string>
+    <string name="historyDItem">Details of Items: Item1, Item2, Item3</string>
     <string name="historyPickup">Pick up</string>
     <string name="reminderName">Send a Reminder</string>
     <string name="reONum">Order Number # </string>
@@ -109,6 +109,16 @@
     <string name="hintRePass">Re-Enter Password:</string>
     <string name="promptUserRole">UserRole</string>
     <string name="txtViewUserRole">User Role:</string>
+    <string name="quantity">Enter quantity</string>
+    <string name="string_foodItem">Enter food item</string>
+    <string name="string_size">Enter size</string>
+    <string name="string_custName">Enter customer name</string>
+    <string name="customer_name">Customer Name:</string>
+    <string name="food_item">Food Item:</string>
+    <string name="txt_size">Size:</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="txt_quantity">Quantity:</string>
     <string-array name="groupProvince">
         <item>AB</item>
         <item>BC</item>

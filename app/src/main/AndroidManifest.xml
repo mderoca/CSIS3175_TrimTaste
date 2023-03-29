@@ -27,7 +27,7 @@
             android:name=".Admin_MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Admin_AddRemobeItems"
+            android:name=".Admin_AddRemoveItems"
             android:exported="false" />
         <activity
             android:name=".Login"
