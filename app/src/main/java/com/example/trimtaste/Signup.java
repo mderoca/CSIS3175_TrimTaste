@@ -2,6 +2,7 @@ package com.example.trimtaste;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -54,6 +55,24 @@ public class Signup extends AppCompatActivity {
                 String repass = repassword.getText().toString();
                 String uRole = userRole.getSelectedItem().toString();
 
+                SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
+
+                // Creating an Editor object to edit(write to the file)
+                SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+                // Storing the key and its value as the data fetched from edittext
+                myEdit.putString("username", user);
+                myEdit.putString("streetAddress", addr);
+                myEdit.putString("city", cit);
+               // myEdit.putString("province", prov);
+                myEdit.putString("postalCode", postCode);
+                myEdit.putString("cell", cell);
+                myEdit.putString("email", em);
+                myEdit.putString("pass", pass);
+                myEdit.putString("repass", repass);
+                //myEdit.putString("userRole", uRole);
+
+                myEdit.commit();
 
 
                 if (user.equals("") || addr.equals("") || cit.equals("") ||

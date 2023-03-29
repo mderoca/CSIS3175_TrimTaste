@@ -109,6 +109,8 @@
     <string name="hintRePass">Re-Enter Password:</string>
     <string name="promptUserRole">UserRole</string>
     <string name="txtViewUserRole">User Role:</string>
+    <string name="btnUpdateProfile">Update Profile</string>
+    <string name="emptyHint">" "</string>
     <string-array name="groupProvince">
         <item>AB</item>
         <item>BC</item>

@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 
@@ -101,6 +103,36 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         Log.d("MyDatabaseHelper", "User type = " + userType);
         return userType;
 
+    }
+
+    public void populateUserProfileData(String currUser, EditText usernameEd, EditText addressEd, EditText cityEd,
+                                        EditText postalCodeEd, //Spinner provinceEd,
+                                        EditText phoneEd,
+                                        EditText emailEd, EditText passEd) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM users WHERE username = ?", new String[] { currUser });
+        if (cursor.moveToFirst()) {
+            String username = cursor.getString(cursor.getColumnIndexOrThrow("Username"));
+            String address = cursor.getString(cursor.getColumnIndexOrThrow("Username"));
+            String city = cursor.getString(cursor.getColumnIndexOrThrow("Username"));
+            String postalCode = cursor.getString(cursor.getColumnIndexOrThrow("Username"));
+            String province = cursor.getString(cursor.getColumnIndexOrThrow("Username"));
+            String phone = cursor.getString(cursor.getColumnIndexOrThrow("Username"));
+            String email = cursor.getString(cursor.getColumnIndexOrThrow("Username"));
+            String pass = cursor.getString(cursor.getColumnIndexOrThrow("email"));
+
+            // ...
+
+            // Populate UI elements with user profile data
+            usernameEd.setText(username);
+            addressEd.setText(address);
+            cityEd.setText(city);
+            postalCodeEd.setText(postalCode);
+            phoneEd.setText(phone);
+            emailEd.setText(email);
+            passEd.setText(pass);
+            // ...
+        }
     }
 
 
