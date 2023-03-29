@@ -53,7 +53,7 @@
     <string name="txtTitle">Welcome To TrimTaste</string>
     <string name="txtList">Items list</string>
     <string name="images">An image</string>
-    <string name="orderName">Order details ans Status</string>
+    <string name="orderName">Order Details and Status</string>
     <string name="orderStatus">Order Status</string>
     <string name="orderDetail">Order Details</string>
     <string name="orderNumber">Order Number: 12345</string>

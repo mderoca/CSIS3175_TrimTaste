@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.widget.SearchView;
 import android.os.Bundle;
 import android.view.View;
@@ -27,16 +28,33 @@ public class User_SearchRestaurant extends AppCompatActivity
         SearchView searchView = findViewById(R.id.searchView);
         RecyclerView recyclerViewRes = findViewById(R.id.recyclerViewRestaurant);
 
+
 //        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 //            @Override
 //            public boolean onQueryTextSubmit(String query) {
 //                // Start of search process
+//                List<Restaurant> filteredRestaurants = new ArrayList<>();
+//                List<String> filteredRestaurantNames = new ArrayList<>();
+//
+//                for (Restaurant restaurant : restaurants) {
+//                    if (restaurant.getCity().equals(query)) { // Assuming getCity() returns the city name for the restaurant
+//                        filteredRestaurants.add(restaurant);
+//                        filteredRestaurantNames.add(restaurant.getName());
+//                    }
+//                }
+//
+//                adapter.setData(filteredRestaurants, filteredRestaurantNames);
+//                adapter.notifyDataSetChanged();
 //                return false;
 //            }
 //
 //            @Override
 //            public boolean onQueryTextChange(String newText) {
 //                // Processing of text changes
+//                if (newText.isEmpty()) {
+//                    adapter.setData(restaurants, restaurantsNames);
+//                    adapter.notifyDataSetChanged();
+//                }
 //                return false;
 //            }
 //        });
@@ -48,8 +66,8 @@ public class User_SearchRestaurant extends AppCompatActivity
     }
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(this,"Selected " + (position+1),
+        Toast.makeText(this,"Selected Restaurant" + (position+1),
                 Toast.LENGTH_SHORT).show();
-//        imageView.setImageResource(adapter.getItem(position));
+        startActivity(new Intent(User_SearchRestaurant.this,User_EachRestaurant.class));
     }
 }
