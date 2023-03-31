@@ -26,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     final static String T1COL_7 = "UserRole";
     //-------------------------------------------------------------------
 
-    //-----------------Restaurnat Table ----------------------------
+    //-----------------Restaurant Table ----------------------------
 
     final static String TABLE2_NAME = "RESTAURANT";
     final static String T2COL_1 = "RestaurantID";
@@ -82,7 +82,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 //            );
     //---------------------------------------------------------------------
 
-    //--------------------_BILL TALBE-------------------------------------
+    //--------------------_BILL TABLE-------------------------------------
 
     final static String TABLE5_NAME = "_BILL";
     final static String T5COL_1 = "BillId";
