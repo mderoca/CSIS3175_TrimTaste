@@ -16,7 +16,7 @@
     <string name="promptProvince">Province</string>
     <string name="hintSearch">Enter the city to search for</string>
     <string name="btnFind">Go</string>
-    <string name="txtFindARes">Find A Restaurant</string>
+    <string name="txtFindARes">Where do u live?</string>
     <string name="txtReduce">Reduce Food Waste &amp; Enjoy Your Meal!</string>
     <string name="conDesSearch">Image button Search</string>
     <string name="conDesFood">Image button Order Food</string>
