@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 public class DatabaseHelper extends SQLiteOpenHelper{
     final static String DATABASE_NAME = "FoodApp.db";
     final static int DATABASE_VERSION = 4;
+    final String[] food ={"Seafood Pizza \n $10.00", "Cajun Chicken Burger \n $12.00", "Stir-fry spaghetti \n $15.00", "Chicken&Celery \n $10.00", "pesto pasta \n $20.00"};
+
 
 
     //-------------------User Table --------------------
@@ -209,19 +211,26 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return true;
     }
 
-    public boolean addMenuItem(String itemName, double itemPrice, int restaurantId) {
+    public boolean addMenuItems(String[] food, int restaurantId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(T3COL_2, itemName);
-        values.put(T3COL_3, itemPrice);
-        values.put(T3COL_4, restaurantId);
 
-        long l = db.insert(TABLE3_NAME, null, values);
-        if (l > 0)
-            return true;
-        else
-            return false;
+        for (String item : food) {
+            String[] parts = item.split("\n");
+            String itemName = parts[0].trim();
+            double itemPrice = Double.parseDouble(parts[1].replaceAll("[^\\d.]", ""));
+            ContentValues menuItem = new ContentValues();
+            menuItem.put(T3COL_2, itemName);
+            menuItem.put(T3COL_3, itemPrice);
+            menuItem.put(T3COL_4, restaurantId);
+            long result = db.insert(TABLE3_NAME, null, menuItem);
+            if (result == -1) {
+                return false;
+            }
+        }
+        return true;
     }
+
+
     public boolean addOrder(int userId, int restaurantId, int menuId, String orderDate, String OpPickup) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
