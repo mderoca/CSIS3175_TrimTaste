@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btnAddorRemove"
+        android:layout_width="125dp"
+        android:layout_height="139dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginBottom="50dp"
+        android:text="@string/btnaddorremove"
+        app:layout_constraintBottom_toTopOf="@+id/btnSendaReminder"
+        app:layout_constraintEnd_toStartOf="@+id/btnVieworEdit"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnVieworEdit"
+        android:layout_width="125dp"
+        android:layout_height="139dp"
+        android:layout_marginTop="124dp"
+        android:layout_marginEnd="25dp"
+        android:text="@string/btnVieworEdit"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnAddorRemove"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnSendaReminder"
+        android:layout_width="125dp"
+        android:layout_height="139dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="240dp"
+        android:text="@string/btnSendReminder"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnGenerateReport"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnGenerateReport"
+        android:layout_width="125dp"
+        android:layout_height="139dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="240dp"
+        android:text="@string/btnGenerateReport"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnSendaReminder"
+        app:layout_constraintTop_toBottomOf="@+id/btnVieworEdit"
+        app:layout_constraintVertical_bias="0.989" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="125dp"
+        android:layout_height="139dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="50dp"
+        android:text="@string/btnLogout"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.141"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSendaReminder"
+        app:layout_constraintVertical_bias="0.596" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/txtTitle"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

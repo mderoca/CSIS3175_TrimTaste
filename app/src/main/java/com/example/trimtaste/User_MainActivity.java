@@ -6,10 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 public class User_MainActivity extends AppCompatActivity {
-    DatabaseHelper db ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,18 +21,10 @@ public class User_MainActivity extends AppCompatActivity {
         ImageButton btnProfile = findViewById(R.id.imgBtnProfile);
         ImageButton btnLogout = findViewById(R.id.imgBtnLogout);
 
-        db = new DatabaseHelper(this);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(User_MainActivity.this, User_SearchRestaurant.class));
-
-                boolean isInserted = db.addRestaurantData();
-                if (isInserted) {
-                    Toast.makeText(User_MainActivity.this, "Data inserted successfully", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(User_MainActivity.this, "Data not inserted", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
@@ -41,7 +32,7 @@ public class User_MainActivity extends AppCompatActivity {
         btnOrderFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(User_MainActivity.this, User_SearchRestaurant.class));
+                startActivity(new Intent(User_MainActivity.this, User_Order.class));
             }
         });
 
@@ -57,7 +48,7 @@ public class User_MainActivity extends AppCompatActivity {
         btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(User_MainActivity.this, User_History.class));
+                startActivity(new Intent(User_MainActivity.this, Usser_History.class));
             }
         });
 

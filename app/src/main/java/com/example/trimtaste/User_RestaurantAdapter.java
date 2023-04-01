@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public class User_RestaurantAdapter extends RecyclerView.Adapter {
     Integer[] rData;
     String[] restaurants;
-//    private List<Restaurant> restaurants;
-//    private List<String> restaurantNames;
     ItemClickListener itemClickListener;
 
 
@@ -22,14 +20,6 @@ public class User_RestaurantAdapter extends RecyclerView.Adapter {
         rData = data;
         restaurants = res;
     }
-//    public User_RestaurantAdapter(List<Restaurant> restaurants, List<String> restaurantNames) {
-//        this.restaurants = restaurants;
-//        this.restaurantNames = restaurantNames;
-//    }
-//    public void setData(List<Restaurant> restaurants, List<String> restaurantNames) {
-//        this.restaurants = restaurants;
-//        this.restaurantNames = restaurantNames;
-//    }
 
     Integer getItem(int id) {
         return  rData[id];
@@ -76,7 +66,7 @@ public class User_RestaurantAdapter extends RecyclerView.Adapter {
 
         public ViewHolder(View itemView){
             super(itemView);
-            imageView = itemView.findViewById(R.id.imgRes);
+            imageView = itemView.findViewById(R.id.imgRestaurant);
             textView = itemView.findViewById(R.id.txtResName);
             itemView.setOnClickListener(this);
         }

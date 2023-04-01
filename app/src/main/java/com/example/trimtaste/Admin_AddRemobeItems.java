@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class Admin_AddRemoveItems extends AppCompatActivity {
+public class Admin_AddRemobeItems extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
