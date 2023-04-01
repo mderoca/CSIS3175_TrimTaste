@@ -16,7 +16,7 @@
     <string name="promptProvince">Province</string>
     <string name="hintSearch">Enter the city to search for</string>
     <string name="btnFind">Go</string>
-    <string name="txtFindARes">Find a Restaurant</string>
+    <string name="txtFindARes">Find A Restaurant</string>
     <string name="txtReduce">Reduce Food Waste &amp; Enjoy Your Meal!</string>
     <string name="conDesSearch">Image button Search</string>
     <string name="conDesFood">Image button Order Food</string>
@@ -43,7 +43,7 @@
     <string name="txtViewEditFoodOrders">View/Edit Food Orders</string>
     <string name="btnEdit">Edit</string>
     <string name="btnRemoveFoodIem">Remove</string>
-    <string name="searchBarHint">Search for a city name</string>
+    <string name="searchBarHint">Enter the city to search for</string>
     <string name="btnSignManager">Sign Up as a Manager</string>
     <string name="btnaddorremove">Add/Remove Food Items</string>
     <string name="btnVieworEdit">View/Edit Orders</string>
@@ -53,7 +53,7 @@
     <string name="txtTitle">Welcome To TrimTaste</string>
     <string name="txtList">Items list</string>
     <string name="images">An image</string>
-    <string name="orderName">Order Details and Status</string>
+    <string name="orderName">Order details ans Status</string>
     <string name="orderStatus">Order Status</string>
     <string name="orderDetail">Order Details</string>
     <string name="orderNumber">Order Number: 12345</string>

@@ -35,7 +35,7 @@
         tools:ignore="SmallSp,TouchTargetSizeCheck" />
 
     <TextView
-        android:id="@+id/txtOrderDetAndStatus"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="168dp"

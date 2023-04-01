@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class User_History extends AppCompatActivity {
+public class Usser_History extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
