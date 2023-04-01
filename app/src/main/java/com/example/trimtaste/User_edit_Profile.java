@@ -47,22 +47,29 @@ public class User_edit_Profile extends AppCompatActivity {
         String user = sh.getString("username", "");
         String streetAddress = sh.getString("streetAddress", "");
         String city = sh.getString("city", "");
-       // String province = sh.getString("province", "");
+        String province = sh.getString("province", "");
         String postalCode = sh.getString("postalCode", "");
         String cell = sh.getString("cell", "");
         String email = sh.getString("email", "");
         String pass = sh.getString("pass", "");
-        String repass = sh.getString("repass", "");
+        //String repass = sh.getString("repass", "");
 
         //set the text as the same as user info using shared pref
         editProfileName.setText(user);
         editProfileAddress.setText(streetAddress);
         editProfileCity.setText(city);
-
         editProfilePostalCode.setText(postalCode);
         editPhone.setText(cell);
         editProfileEmail.setText(email);
         editProfilePassword.setText(pass);
+
+        for(int i= 0; i < spnProvince.getAdapter().getCount(); i++)
+        {
+            if(spnProvince.getAdapter().getItem(i).toString().contains(province))
+            {
+                spnProvince.setSelection(i);
+            }
+        }
 
 
         //**** NEED TO FIGURE OUT HOW TO KEEP CHANGED DATA DISPLAYED. (SHARED PREF MAYBE?) *******
@@ -74,29 +81,27 @@ public class User_edit_Profile extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                int provincePos = spnProvince.getSelectedItemPosition();
+
                 //get text *******
                 String newUsername = editProfileName.getText().toString();
                 String newStreet = editProfileAddress.getText().toString();
                 String newCity = editProfileCity.getText().toString();
+                String newProvince = spnProvince.getSelectedItem().toString();
                 String newPostalCode = editProfilePostalCode.getText().toString();
                 String newCell = editPhone.getText().toString();
                 String newEmail = editProfileEmail.getText().toString();
                 String newPass = editProfilePassword.getText().toString();
-                String newAddress = newStreet + " " + newCity + " " + newPostalCode;
-
-                //SharedPreferences sharedPreferences = getSharedPreferences("MySharedPreff",MODE_PRIVATE);
 
                 // Creating an Editor object to edit(write to the file)
                 SharedPreferences.Editor myEdit = sh.edit();
 
-               boolean isUpdated = databaseHelper.updateData(user, newUsername, newAddress, newEmail,
-                                         newCell, newPass);
+               boolean isUpdated = databaseHelper.updateData(user, newUsername, newStreet, newCity,
+                                        newProvince, newPostalCode, newCell, newEmail, newPass);
                 // Storing the key and its value as the data fetched from edittext
                 myEdit.putString("username", newUsername);
                 myEdit.putString("streetAddress", newStreet);
                 myEdit.putString("city", newCity);
-                // myEdit.putString("province", prov);
+                myEdit.putString("province", newProvince);
                 myEdit.putString("postalCode", newPostalCode);
                 myEdit.putString("cell", newCell);
                 myEdit.putString("email", newEmail);
@@ -106,7 +111,7 @@ public class User_edit_Profile extends AppCompatActivity {
                 String newUser = sh.getString("username", "");
                 String newStre = sh.getString("streetAddress", "");
                 String newCit = sh.getString("city", "");
-                // String province = sh.getString("province", "");
+                String province = sh.getString("province", "");
                 String newPcode = sh.getString("postalCode", "");
                 String newCel = sh.getString("cell", "");
                 String newEm = sh.getString("email", "");
@@ -117,15 +122,22 @@ public class User_edit_Profile extends AppCompatActivity {
                 editProfileName.setText(newUser);
                 editProfileAddress.setText(newStre);
                 editProfileCity.setText(newCit);
-
                 editProfilePostalCode.setText(newPcode);
                 editPhone.setText(newCel);
                 editProfileEmail.setText(newEm);
                 editProfilePassword.setText(newPas);
 
+                for(int i= 0; i < spnProvince.getAdapter().getCount(); i++)
+                {
+                    if(spnProvince.getAdapter().getItem(i).toString().contains(province))
+                    {
+                        spnProvince.setSelection(i);
+                    }
+                }
+
                 Log.d("User_edit_Profile", "currUsername: " + user);
                 Log.d("User_edit_Profile", "newUsername: " + newUsername);
-                Log.d("User_edit_Profile", "newAddress: " + newAddress);
+                //Log.d("User_edit_Profile", "newAddress: " + newAddress);
                 Log.d("User_edit_Profile", "newEmail: " + newEmail);
                 Log.d("User_edit_Profile", "newCell: " + newCell);
                 Log.d("User_edit_Profile", "newPass: " + newPass);

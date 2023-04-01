@@ -33,15 +33,22 @@ public class Login extends AppCompatActivity {
                 String user = username.getText().toString();
                 String pass = password.getText().toString();
 
+                // Call the displayUserProfile method to retrieve the user's data
+                boolean userFound = databaseHelper.displayUserProfile(user);
+
                 SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
-
                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
-
-                myEdit.putString("username", user);
-                myEdit.commit();
 
                 String userType = databaseHelper.getUserType(user, pass);
                 Boolean checkUserPass = databaseHelper.checkUsernamePassword(user, pass);
+
+                Log.d("Login", "currUsername: " + user);
+                Log.d("Login", "currPass: " + pass);
+//                Log.d("Login", "newUsername: " + newUsername);
+//                Log.d("Login", "newAddress: " + newAddress);
+//                Log.d("Login", "newEmail: " + newEmail);
+//                Log.d("Login", "newCell: " + newCell);
+//                Log.d("Login", "newPass: " + newPass);
 
                 if(user.equals("")||pass.equals("")){
                     Toast.makeText(Login.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
@@ -62,6 +69,24 @@ public class Login extends AppCompatActivity {
                     } else{
                         Toast.makeText(Login.this, "User is not in our database, Please register for an account!", Toast.LENGTH_SHORT).show();
                     }
+                }
+                // Check if the user's data was found and update the UI accordingly
+                if (userFound) {
+                    // Update the UI with the user's data
+                    myEdit.putString("username", databaseHelper.getUsername());
+                    myEdit.putString("streetAddress", databaseHelper.getStreet());
+                    myEdit.putString("city", databaseHelper.getcity());
+                    myEdit.putString("province", databaseHelper.getProvince());
+                    myEdit.putString("postalCode", databaseHelper.getPostalCode());
+                    myEdit.putString("cell", databaseHelper.getPhoneNumber());
+                    myEdit.putString("email", databaseHelper.getEmail());
+                    myEdit.putString("pass", databaseHelper.getPassword());
+
+                    myEdit.commit();
+
+                } else {
+                    // Show an error message or take other actions if the user's data was not found
+                    Toast.makeText(Login.this, "User data not found", Toast.LENGTH_SHORT).show();
                 }
             }
         });
