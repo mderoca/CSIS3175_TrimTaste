@@ -24,7 +24,7 @@ public class Admin_MainActivity extends AppCompatActivity {
         imgBtnAddItems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Admin_MainActivity.this, Admin_AddRemobeItems.class));
+                startActivity(new Intent(Admin_MainActivity.this, Admin_AddRemoveItems.class));
             }
         });
 

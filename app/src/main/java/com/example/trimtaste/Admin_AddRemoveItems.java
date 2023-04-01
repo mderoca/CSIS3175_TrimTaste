@@ -1,14 +1,14 @@
 package com.example.trimtaste;
 
-import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Usser_History extends AppCompatActivity {
+import android.os.Bundle;
+
+public class Admin_AddRemoveItems extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_history);
+        setContentView(R.layout.activity_admin_add_remove_food_items);
     }
 }
