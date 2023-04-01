@@ -294,35 +294,18 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     }
 
-    public void populateUserProfileData(String currUser, EditText usernameEd, EditText addressEd, EditText cityEd,
-                                        EditText postalCodeEd, //Spinner provinceEd,
-                                        EditText phoneEd,
-                                        EditText emailEd, EditText passEd) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM users WHERE username = ?", new String[] { currUser });
-        if (cursor.moveToFirst()) {
-            String username = cursor.getString(cursor.getColumnIndexOrThrow("Username"));
-            String address = cursor.getString(cursor.getColumnIndexOrThrow("Username"));
-            String city = cursor.getString(cursor.getColumnIndexOrThrow("Username"));
-            String postalCode = cursor.getString(cursor.getColumnIndexOrThrow("Username"));
-            String province = cursor.getString(cursor.getColumnIndexOrThrow("Username"));
-            String phone = cursor.getString(cursor.getColumnIndexOrThrow("Username"));
-            String email = cursor.getString(cursor.getColumnIndexOrThrow("Username"));
-            String pass = cursor.getString(cursor.getColumnIndexOrThrow("email"));
+    public boolean updateData(String currUsername, String username, String address, String email, String phoneNumber,
+                              String password) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(T1COL_5, username);
+        contentValues.put(T1COL_2, address);
+        contentValues.put(T1COL_3, email);
+        contentValues.put(T1COL_4, phoneNumber);
+        contentValues.put(T1COL_6, password);
 
-            // ...
-
-            // Populate UI elements with user profile data
-            usernameEd.setText(username);
-            addressEd.setText(address);
-            cityEd.setText(city);
-            postalCodeEd.setText(postalCode);
-            phoneEd.setText(phone);
-            emailEd.setText(email);
-            passEd.setText(pass);
-            // ...
-        }
+        int result = db.update(TABLE1_NAME, contentValues, "username=?", new String[]{currUsername});
+        return result != -1;
     }
-
 
 }

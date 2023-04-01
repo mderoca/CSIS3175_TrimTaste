@@ -56,12 +56,17 @@ public class Signup extends AppCompatActivity {
                 String uRole = userRole.getSelectedItem().toString();
 
                 SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
+                //SharedPreferences sharedPrefUser = getSharedPreferences("SharedPrefUser", MODE_PRIVATE);
 
                 // Creating an Editor object to edit(write to the file)
                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                //SharedPreferences.Editor editUser = sharedPrefUser.edit();
+
+                //for user
+                //editUser.putString("username", user);
 
                 // Storing the key and its value as the data fetched from edittext
-                myEdit.putString("username", user);
+                //myEdit.putString("username", user);
                 myEdit.putString("streetAddress", addr);
                 myEdit.putString("city", cit);
                // myEdit.putString("province", prov);

@@ -3,6 +3,7 @@ package com.example.trimtaste;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +32,13 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 String user = username.getText().toString();
                 String pass = password.getText().toString();
+
+                SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
+
+                SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+                myEdit.putString("username", user);
+                myEdit.commit();
 
                 String userType = databaseHelper.getUserType(user, pass);
                 Boolean checkUserPass = databaseHelper.checkUsernamePassword(user, pass);
