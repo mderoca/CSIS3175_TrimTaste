@@ -66,7 +66,7 @@ public class User_RestaurantAdapter extends RecyclerView.Adapter {
 
         public ViewHolder(View itemView){
             super(itemView);
-            imageView = itemView.findViewById(R.id.imgRestaurant);
+            imageView = itemView.findViewById(R.id.imgRes);
             textView = itemView.findViewById(R.id.txtResName);
             itemView.setOnClickListener(this);
         }

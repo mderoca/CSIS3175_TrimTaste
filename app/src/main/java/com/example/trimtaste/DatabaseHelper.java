@@ -45,7 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     private String nPassword;
     //-------------------------------------------------------------------
 
-    //-----------------Restaurnat Table ----------------------------
+    //-----------------Restaurant Table ----------------------------
 
     final static String TABLE2_NAME = "RESTAURANT";
     final static String T2COL_1 = "RestaurantID";
@@ -101,7 +101,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 //            );
     //---------------------------------------------------------------------
 
-    //--------------------_BILL TALBE-------------------------------------
+    //--------------------_BILL TABLE-------------------------------------
 
     final static String TABLE5_NAME = "_BILL";
     final static String T5COL_1 = "BillId";
@@ -204,37 +204,116 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         // Add restaurant 1
         ContentValues restaurant1 = new ContentValues();
-        restaurant1.put(T2COL_2, "Restaurant 1");
+        restaurant1.put(T2COL_2, "Chef Ron restaurant and bar");
         restaurant1.put(T2COL_3, "123 Main St");
-        restaurant1.put(T2COL_4, "City 1");
-        long restaurant1Id = db.insert(TABLE2_NAME, null, restaurant1);
-        if (restaurant1Id == -1) {
-            return false;
+        restaurant1.put(T2COL_4, "Vancouver");
+        if (!isRestaurantNameExists(db, "Chef Ron restaurant and bar")) { // check if name already exists
+            long restaurant1Id = db.insert(TABLE2_NAME, null, restaurant1);
+            if (restaurant1Id == -1) {
+                return false;
+            }
         }
 
         // Add restaurant 2
         ContentValues restaurant2 = new ContentValues();
-        restaurant2.put(T2COL_2, "Restaurant 2");
+        restaurant2.put(T2COL_2, "Pho Express Angkor Noodle House");
         restaurant2.put(T2COL_3, "456 Elm St");
-        restaurant2.put(T2COL_4, "City 2");
-        long restaurant2Id = db.insert(TABLE2_NAME, null, restaurant2);
-        if (restaurant2Id == -1) {
-            return false;
+        restaurant2.put(T2COL_4, "Richmond");
+        if (!isRestaurantNameExists(db, "Pho Express Angkor Noodle House")) {
+            long restaurant2Id = db.insert(TABLE2_NAME, null, restaurant2);
+            if (restaurant2Id == -1) {
+                return false;
+            }
         }
 
         // Add restaurant 3
         ContentValues restaurant3 = new ContentValues();
-        restaurant3.put(T2COL_2, "Restaurant 3");
+        restaurant3.put(T2COL_2, "Mediterranean Grill");
         restaurant3.put(T2COL_3, "789 Oak St");
-        restaurant3.put(T2COL_4, "City 3");
-        long restaurant3Id = db.insert(TABLE2_NAME, null, restaurant3);
-        if (restaurant3Id == -1) {
-            return false;
+        restaurant3.put(T2COL_4, "Vancovuer");
+        if (!isRestaurantNameExists(db, "Mediterranean Grill")) {
+            long restaurant3Id = db.insert(TABLE2_NAME, null, restaurant3);
+            if (restaurant3Id == -1) {
+                return false;
+            }
         }
+
+        // Add restaurant 4
+        ContentValues restaurant4 = new ContentValues();
+        restaurant4.put(T2COL_2, "Tractor Foods");
+        restaurant4.put(T2COL_3, "789 Oak St");
+        restaurant4.put(T2COL_4, "Burnaby");
+        if (!isRestaurantNameExists(db, "Tractor Foods")) {
+            long restaurant4Id = db.insert(TABLE2_NAME, null, restaurant4);
+            if (restaurant4Id == -1) {
+                return false;
+            }
+        }
+        // Add restaurant 5
+        ContentValues restaurant5 = new ContentValues();
+        restaurant5.put(T2COL_2, "Cactus Club Cafe");
+        restaurant5.put(T2COL_3, "1790 Beach Ave");
+        restaurant5.put(T2COL_4, "Vancouver");
+        if (!isRestaurantNameExists(db, "Cactus Club Cafe")) {
+            long restaurant5Id = db.insert(TABLE2_NAME, null, restaurant5);
+            if (restaurant5Id == -1) {
+                return false;
+            }
+        }
+
+// Add restaurant 6
+        ContentValues restaurant6 = new ContentValues();
+        restaurant6.put(T2COL_2, "Pizza Garden");
+        restaurant6.put(T2COL_3, "2122 Kingsway");
+        restaurant6.put(T2COL_4, "Vancouver");
+        if (!isRestaurantNameExists(db, "Pizza Garden")) {
+            long restaurant6Id = db.insert(TABLE2_NAME, null, restaurant6);
+            if (restaurant6Id == -1) {
+                return false;
+            }
+        }
+
+// Add restaurant 7
+        ContentValues restaurant7 = new ContentValues();
+        restaurant7.put(T2COL_2, "The Fish Counter");
+        restaurant7.put(T2COL_3, "3825 Main St");
+        restaurant7.put(T2COL_4, "Vancouver");
+        if (!isRestaurantNameExists(db, "The Fish Counter")) {
+            long restaurant7Id = db.insert(TABLE2_NAME, null, restaurant7);
+            if (restaurant7Id == -1) {
+                return false;
+            }
+        }
+
+// Add restaurant 8
+        ContentValues restaurant8 = new ContentValues();
+        restaurant8.put(T2COL_2, "Red Wagon Cafe");
+        restaurant8.put(T2COL_3, "2296 E Hastings St");
+        restaurant8.put(T2COL_4, "Vancouver");
+        if (!isRestaurantNameExists(db, "Red Wagon Cafe")) {
+            long restaurant8Id = db.insert(TABLE2_NAME, null, restaurant8);
+            if (restaurant8Id == -1) {
+                return false;
+            }
+        }
+
 
         return true;
     }
 
+    private boolean isRestaurantNameExists(SQLiteDatabase db, String restaurantName) {
+        String[] columns = {T2COL_2};
+        String selection = T2COL_2 + "=?";
+        String[] selectionArgs = {restaurantName};
+        String limit = "1";
+        Cursor cursor = db.query(TABLE2_NAME, columns, selection, selectionArgs, null, null, null, limit);
+        boolean exists = cursor.moveToFirst();
+        cursor.close();
+        return exists;
+    }
+
+
+    public boolean addMenuItem(String itemName, double itemPrice, int restaurantId) {
     public boolean addMenuItems(String[] food, int restaurantId) {
         SQLiteDatabase db = this.getWritableDatabase();
 
