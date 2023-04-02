@@ -6,26 +6,43 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
     final static String DATABASE_NAME = "FoodApp.db";
-    final static int DATABASE_VERSION = 4;
     final String[] food ={"Seafood Pizza \n $10.00", "Cajun Chicken Burger \n $12.00", "Stir-fry spaghetti \n $15.00", "Chicken&Celery \n $10.00", "pesto pasta \n $20.00"};
 
+    final static int DATABASE_VERSION = 5;
 
 
     //-------------------User Table --------------------
 
     final static String TABLE1_NAME = "USER_TABLE";
     final static String T1COL_1 = "UserId";
-    final static String T1COL_2 = "Address";
-    final static String T1COL_3 = "Email";
-    final static String T1COL_4 = "phoneNumber";
-    final static String T1COL_5 = "Username";
-    final static String T1COL_6 = "Password";
-    final static String T1COL_7 = "UserRole";
+    final static String T1COL_2 = "Street";
+
+    final static String T1COL_3 = "City";
+
+    final static String T1COL_4 = "Province";
+
+    final static String T1COL_5 = "postalCode";
+    final static String T1COL_6 = "Email";
+    final static String T1COL_7 = "phoneNumber";
+    final static String T1COL_8 = "Username";
+    final static String T1COL_9 = "Password";
+    final static String T1COL_10 = "UserRole";
+
+    private String nStreet;
+    private String nCity;
+    private String nProvince;
+    private String nPostalCode;
+    private String nEmail;
+    private String nPhoneNumber;
+    private String nUsername;
+    private String nPassword;
     //-------------------------------------------------------------------
 
     //-----------------Restaurnat Table ----------------------------
@@ -111,7 +128,10 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         String userTable = "CREATE TABLE " + TABLE1_NAME + " (" + T1COL_1 +
                 " INTEGER PRIMARY KEY AUTOINCREMENT, " + T1COL_2 + " TEXT, " + T1COL_3 + " TEXT, " +
                 T1COL_4 + " TEXT, " + T1COL_5 + " TEXT, " + T1COL_6 + " TEXT, " + T1COL_7 +
-                " TEXT" + ");";
+                " TEXT," + T1COL_8 +
+                " TEXT," + T1COL_9 +
+                " TEXT," + T1COL_10 +
+                " TEXT" +");";
 
         //Creating Restaurant
         String restaurantTable = "CREATE TABLE " + TABLE2_NAME + " (" + T2COL_1 +
@@ -157,16 +177,20 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public boolean addData(String address, String email, String phoneNum,
+    public boolean addData(String street, String city, String province, String postalCode,
+                           String email, String phoneNum,
                            String username, String password, String userRole) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(T1COL_2, address);
-        values.put(T1COL_3, email);
-        values.put(T1COL_4, phoneNum);
-        values.put(T1COL_5, username);
-        values.put(T1COL_6, password);
-        values.put(T1COL_7, userRole);
+        values.put(T1COL_2, street);
+        values.put(T1COL_3, city);
+        values.put(T1COL_4, province);
+        values.put(T1COL_5, postalCode);
+        values.put(T1COL_6, email);
+        values.put(T1COL_7, phoneNum);
+        values.put(T1COL_8, username);
+        values.put(T1COL_9, password);
+        values.put(T1COL_10, userRole);
 
         long l = db.insert(TABLE1_NAME, null, values);
         if (l > 0)
@@ -289,17 +313,95 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public String getUserType(String username, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT " + T1COL_7 + " FROM " + TABLE1_NAME +
-                " WHERE " + T1COL_5 + "=? AND " + T1COL_6 + " =? ", new String[]{username, password});
+        Cursor cursor = db.rawQuery("SELECT " + T1COL_10 + " FROM " + TABLE1_NAME +
+                " WHERE " + T1COL_8 + "=? AND " + T1COL_9 + " =? ", new String[]{username, password});
 
         String userType = "";
         if (cursor.moveToFirst()) {
-            userType = cursor.getString(cursor.getColumnIndexOrThrow(T1COL_7));
+            userType = cursor.getString(cursor.getColumnIndexOrThrow(T1COL_10));
         }
         Log.d("MyDatabaseHelper", "User type = " + userType);
         return userType;
 
     }
 
+    public boolean updateData(String currUsername, String username, String street, String city,
+                              String province, String postalCode, String cell, String email,
+                              String password) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(T1COL_8, username);
+        contentValues.put(T1COL_2, street);
+        contentValues.put(T1COL_3, city);
+        contentValues.put(T1COL_4, province);
+        contentValues.put(T1COL_5, postalCode);
+        contentValues.put(T1COL_6, email);
+        contentValues.put(T1COL_7, cell);
+        contentValues.put(T1COL_9, password);
+
+        int result = db.update(TABLE1_NAME, contentValues, "username=?", new String[]{currUsername});
+        return result != -1;
+    }
+
+    public boolean displayUserProfile(String username) {
+        SQLiteDatabase db = getReadableDatabase();
+        String[] projection = {T1COL_2, T1COL_3, T1COL_4, T1COL_5, T1COL_6, T1COL_7,
+                T1COL_8, T1COL_9};
+        String selection = T1COL_8 + " = ?";
+        String[] selectionArgs = {username};
+        Cursor cursor = db.query(TABLE1_NAME, projection, selection, selectionArgs, null, null, null);
+
+        boolean userFound = false;
+        if (cursor.moveToFirst()) {
+            //int userId = cursor.getString(cursor.getColumnIndexOrThrow(T1COL_1));
+            nStreet = cursor.getString(cursor.getColumnIndexOrThrow(T1COL_2));
+            nCity = cursor.getString(cursor.getColumnIndexOrThrow(T1COL_3));
+            nProvince = cursor.getString(cursor.getColumnIndexOrThrow(T1COL_4));
+            nPostalCode = cursor.getString(cursor.getColumnIndexOrThrow(T1COL_5));
+            nEmail = cursor.getString(cursor.getColumnIndexOrThrow(T1COL_6));
+            nPhoneNumber = cursor.getString(cursor.getColumnIndexOrThrow(T1COL_7));
+            nUsername = cursor.getString(cursor.getColumnIndexOrThrow(T1COL_8));
+            nPassword = cursor.getString(cursor.getColumnIndexOrThrow(T1COL_9));
+
+            // Update UI with user information
+            // ...
+
+            userFound = true;
+        }
+        cursor.close();
+        return userFound;
+    }
+
+    public String getStreet() {
+        return nStreet;
+    }
+
+    public String getcity() {
+        return nCity;
+    }
+
+    public String getProvince() {
+        return nProvince;
+    }
+
+    public String getPostalCode() {
+        return nPostalCode;
+    }
+
+    public String getEmail() {
+        return nEmail;
+    }
+
+    public String getPhoneNumber() {
+        return nPhoneNumber;
+    }
+
+    public String getUsername() {
+        return nUsername;
+    }
+
+    public String getPassword() {
+        return nPassword;
+    }
 
 }
