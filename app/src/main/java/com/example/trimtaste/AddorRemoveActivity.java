@@ -34,7 +34,7 @@ public class AddorRemoveActivity extends AppCompatActivity {
         int[] to = {R.id.image,R.id.txtFoodItem};
 
         SimpleAdapter adapter = new SimpleAdapter(AddorRemoveActivity.this,
-                aList,R.layout.listview_layout,from,to);
+                aList,R.layout.list_item,from,to);
 
         ListView listView = findViewById(R.id.listView);
         listView.setAdapter(adapter);

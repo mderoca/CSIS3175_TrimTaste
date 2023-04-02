@@ -12,6 +12,9 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".User_MenuActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddorRemoveActivity"
             android:exported="false" />
         <activity
@@ -27,7 +30,7 @@
             android:name=".Admin_MainActivity"
             android:exported="false" />
         <activity
-            android:name=".Admin_AddRemobeItems"
+            android:name=".Admin_AddRemoveItems"
             android:exported="false" />
         <activity
             android:name=".Login"
@@ -71,7 +74,6 @@
         <activity
             android:name=".Usser_History"
             android:exported="false" />
-
     </application>
 
 </manifest>
