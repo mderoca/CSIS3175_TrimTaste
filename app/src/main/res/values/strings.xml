@@ -109,6 +109,15 @@
     <string name="hintRePass">Re-Enter Password:</string>
     <string name="promptUserRole">UserRole</string>
     <string name="txtViewUserRole">User Role:</string>
+    <string name="btnUpdateProfile">Update Profile</string>
+    <string name="emptyHint">" "</string>
+    <string name="hintNewName">Enter new username</string>
+    <string name="hintStreetAddress">Enter new street address</string>
+    <string name="hintNewCity">Enter new city</string>
+    <string name="hintNewPostalCode">Enter new postal code</string>
+    <string name="hintNewPhone">Enter new cell number</string>
+    <string name="hintNewEmail">Enter new email</string>
+    <string name="hintNewPass">Enter new password</string>
     <string-array name="groupProvince">
         <item>AB</item>
         <item>BC</item>
