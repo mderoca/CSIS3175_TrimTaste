@@ -1,7 +1,6 @@
 package com.example.trimtaste;
 
 import androidx.appcompat.app.AppCompatActivity;
-//import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -63,10 +62,11 @@ public class User_SearchRestaurant extends AppCompatActivity
         getSupportActionBar().setTitle(R.string.txtFindARes);
 
         ArrayList<HashMap<String,String>> aList = new ArrayList<>();
-        for (int i = 0; i < restaurantsNames.length; i++) {
+        for (int i = 0; i < cities.length; i++) {
             HashMap<String,String> hashMap = new HashMap<>();
             hashMap.put("imgRes", Integer.toString(restaurants[i]));
             hashMap.put("txtResName", restaurantsNames[i]);
+            hashMap.put("cities", cities[i]);
             aList.add(hashMap);
         }
 
@@ -81,7 +81,6 @@ public class User_SearchRestaurant extends AppCompatActivity
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 switch (position){
                     case 0:
-//                        boolean isInserted = db.addMenuItems(res1Food, 1);
                         boolean checkMenu = db.checkMenu(1);
 
                         if(checkMenu){
@@ -90,16 +89,8 @@ public class User_SearchRestaurant extends AppCompatActivity
                             Toast.makeText(User_SearchRestaurant.this, "Data not inserted", Toast.LENGTH_SHORT).show();
                         }
 
-//                        if (isInserted) {
-//                            Toast.makeText(User_SearchRestaurant.this, "Data inserted successfully", Toast.LENGTH_SHORT).show();
-//                            startActivity(new Intent(User_SearchRestaurant.this,User_EachRestaurant.class));
-//                        } else {
-//                            Toast.makeText(User_SearchRestaurant.this, "Data not inserted", Toast.LENGTH_SHORT).show();
-//                        }
                         break;
                     case 1:
-//                        boolean isInserted2 = db.addMenuItems(res2Food, 2);
-
                         boolean checkMenu2 = db.checkMenu(2);
 
                         if(checkMenu2){
@@ -107,13 +98,6 @@ public class User_SearchRestaurant extends AppCompatActivity
                         }else {
                             Toast.makeText(User_SearchRestaurant.this, "Data not inserted", Toast.LENGTH_SHORT).show();
                         }
-
-//                        if (isInserted2) {
-//                            Toast.makeText(User_SearchRestaurant.this, "Data inserted successfully", Toast.LENGTH_SHORT).show();
-//                            startActivity(new Intent(User_SearchRestaurant.this,Restaurant2.class));
-//                        } else {
-//                            Toast.makeText(User_SearchRestaurant.this, "Data not inserted", Toast.LENGTH_SHORT).show();
-//                        }
                         break;
                     case 2:
                         boolean checkMenu3 = db.checkMenu(3);
@@ -123,14 +107,6 @@ public class User_SearchRestaurant extends AppCompatActivity
                         }else {
                             Toast.makeText(User_SearchRestaurant.this, "Data not inserted", Toast.LENGTH_SHORT).show();
                         }
-
-//                        boolean isInserted3 = db.addMenuItems(res3Food, 3);
-//                        if (isInserted3) {
-//                            Toast.makeText(User_SearchRestaurant.this, "Data inserted successfully", Toast.LENGTH_SHORT).show();
-//                            startActivity(new Intent(User_SearchRestaurant.this,Restaurant3.class));
-//                        } else {
-//                            Toast.makeText(User_SearchRestaurant.this, "Data not inserted", Toast.LENGTH_SHORT).show();
-//                        }
                         break;
                     case 3:
                         boolean checkMenu4 = db.checkMenu(4);
@@ -140,14 +116,6 @@ public class User_SearchRestaurant extends AppCompatActivity
                         }else {
                             Toast.makeText(User_SearchRestaurant.this, "Data not inserted", Toast.LENGTH_SHORT).show();
                         }
-
-//                        boolean isInserted4 = db.addMenuItems(res4Food, 4);
-//                        if (isInserted4) {
-//                            Toast.makeText(User_SearchRestaurant.this, "Data inserted successfully", Toast.LENGTH_SHORT).show();
-//                            startActivity(new Intent(User_SearchRestaurant.this,Restaurant4.class));
-//                        } else {
-//                            Toast.makeText(User_SearchRestaurant.this, "Data not inserted", Toast.LENGTH_SHORT).show();
-//                        }
                         break;
                     case 4:
                         boolean checkMenu5 = db.checkMenu(5);
@@ -157,14 +125,6 @@ public class User_SearchRestaurant extends AppCompatActivity
                         }else {
                             Toast.makeText(User_SearchRestaurant.this, "Data not inserted", Toast.LENGTH_SHORT).show();
                         }
-
-//                        boolean isInserted5 = db.addMenuItems(res5Food, 5);
-//                        if (isInserted5) {
-//                            Toast.makeText(User_SearchRestaurant.this, "Data inserted successfully", Toast.LENGTH_SHORT).show();
-//                            startActivity(new Intent(User_SearchRestaurant.this,Restaurant5.class));
-//                        } else {
-//                            Toast.makeText(User_SearchRestaurant.this, "Data not inserted", Toast.LENGTH_SHORT).show();
-//                        }
                         break;
                     case 5:
                         boolean checkMenu6 = db.checkMenu(6);
@@ -174,14 +134,6 @@ public class User_SearchRestaurant extends AppCompatActivity
                         }else {
                             Toast.makeText(User_SearchRestaurant.this, "Data not inserted", Toast.LENGTH_SHORT).show();
                         }
-
-//                        boolean isInserted6 = db.addMenuItems(res6Food, 6);
-//                        if (isInserted6) {
-//                            Toast.makeText(User_SearchRestaurant.this, "Data inserted successfully", Toast.LENGTH_SHORT).show();
-//                            startActivity(new Intent(User_SearchRestaurant.this,Restaurant6.class));
-//                        } else {
-//                            Toast.makeText(User_SearchRestaurant.this, "Data not inserted", Toast.LENGTH_SHORT).show();
-//                        }
                         break;
                     case 6:
                         boolean checkMenu7 = db.checkMenu(7);
@@ -191,14 +143,6 @@ public class User_SearchRestaurant extends AppCompatActivity
                         }else {
                             Toast.makeText(User_SearchRestaurant.this, "Data not inserted", Toast.LENGTH_SHORT).show();
                         }
-
-//                        boolean isInserted7 = db.addMenuItems(res7Food, 7);
-//                        if (isInserted7) {
-//                            Toast.makeText(User_SearchRestaurant.this, "Data inserted successfully", Toast.LENGTH_SHORT).show();
-//                            startActivity(new Intent(User_SearchRestaurant.this,Restaurant7.class));
-//                        } else {
-//                            Toast.makeText(User_SearchRestaurant.this, "Data not inserted", Toast.LENGTH_SHORT).show();
-//                        }
                         break;
                     case 7:
                         boolean checkMenu8 = db.checkMenu(8);
@@ -208,14 +152,6 @@ public class User_SearchRestaurant extends AppCompatActivity
                         }else {
                             Toast.makeText(User_SearchRestaurant.this, "Data not inserted", Toast.LENGTH_SHORT).show();
                         }
-
-//                        boolean isInserted8 = db.addMenuItems(res8Food, 8);
-//                        if (isInserted8) {
-//                            Toast.makeText(User_SearchRestaurant.this, "Data inserted successfully", Toast.LENGTH_SHORT).show();
-//                            startActivity(new Intent(User_SearchRestaurant.this,Restaurant8.class));
-//                        } else {
-//                            Toast.makeText(User_SearchRestaurant.this, "Data not inserted", Toast.LENGTH_SHORT).show();
-//                        }
                         break;
                 }
 
