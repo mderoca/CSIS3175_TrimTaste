@@ -62,8 +62,11 @@ public class Restaurant7 extends AppCompatActivity
 
     @Override
     public void onItemClick(View view, int position) {
-        //menu id + position
-        int menuId = position+31;
+        DatabaseHelper db = new DatabaseHelper(this);
+
+        String[] menuItems2 = db.getMenuItems(7);
+
+        int menuId = db.getMenuItemId(menuItems2[position]);
 
         boolean menuItemFound = db.displayMenuInfo(menuId);
 

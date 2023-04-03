@@ -7,111 +7,42 @@
     android:background="@color/background"
     tools:context=".Usser_History">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/historyName"
-        android:textColor="@color/black"
-        android:textSize="24sp"
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="59dp">
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp" />
-
-
-        <View
-            android:id="@+id/topLineView"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            app:layout_constraintTop_toBottomOf="@id/orderStatusTextView"/>
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/listView">
 
         <TextView
-            android:id="@+id/txtRName"
-            android:layout_width="wrap_content"
+            android:id="@+id/orderId"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/historyRName"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp">
-
-            <TextView
-                android:id="@+id/txtTPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/historyTPrice"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/historyline"
-                tools:ignore="TextContrastCheck" />
-
-            <TextView
-                android:id="@+id/txtItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/histoyTItem"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp" />
-
+            android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/txtDetail"
-            android:layout_width="wrap_content"
+            android:id="@+id/customerName"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/historyDItem"
-            android:textStyle="bold" />
+            android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/txtPickup"
-            android:layout_width="wrap_content"
+            android:id="@+id/orderTotal"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/historyPickup"
-            android:textStyle="bold" />
+            android:layout_weight="1" />
 
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp" />
-        <View
-            android:id="@+id/bottomLineView"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            />
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

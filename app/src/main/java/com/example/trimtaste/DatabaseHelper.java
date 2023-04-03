@@ -11,6 +11,9 @@ import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHelper extends SQLiteOpenHelper{
     final static String DATABASE_NAME = "FoodApp.db";
     final String[] food ={"Seafood Pizza \n $10.00", "Cajun Chicken Burger \n $12.00", "Stir-fry spaghetti \n $15.00", "Chicken&Celery \n $10.00", "pesto pasta \n $20.00"};
@@ -388,6 +391,35 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
     }
 
+    public int getMenuItemId(String menuItemName) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] projection = { T3COL_1 };
+        String selection = T3COL_2 + " = ?";
+        String[] selectionArgs = { menuItemName };
+
+        Cursor cursor = db.query(
+                TABLE3_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        int menuItemId = 0;
+
+        if (cursor.moveToFirst()) {
+            menuItemId = cursor.getInt(cursor.getColumnIndexOrThrow(T3COL_1));
+        }
+
+        cursor.close();
+        db.close();
+
+        return menuItemId;
+    }
+
     public double getMenuItemPrice(String menuItemName) {
         SQLiteDatabase db = getReadableDatabase();
 
@@ -521,6 +553,46 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return orderItemNames;
     }
 
+    public List<String> getOrdersByNumber(String orderNumber) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<String> ordersList = new ArrayList<>();
+
+        String[] columns = {
+                //T4COL_1,
+                //T4COL_2,
+                T4COL_3,
+                T4COL_4,
+                T4COL_5,
+                T4COL_6,
+                T4COL_7,
+                T4COL_8
+        };
+
+        String selection = T4COL_3 + " = ?";
+        String[] selectionArgs = { orderNumber };
+
+        Cursor cursor = db.query(TABLE4_NAME, columns, selection, selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                String order = "";
+                //order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_1)) + ", ";
+                //order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_2)) + ", ";
+                order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_3)) + ", ";
+                order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_4)) + ", ";
+                order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_5)) + ", ";
+                order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_6)) + ", ";
+                order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_7)) + ", ";
+                order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_8));
+                ordersList.add(order);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+        return ordersList;
+    }
+
+
     public boolean displayOrderInfo(String orderNum) {
         SQLiteDatabase db = getReadableDatabase();
         String[] projection = {T4COL_3, T4COL_4, T4COL_5,
@@ -563,6 +635,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public String getnItemPrice() {
         return nItemPrice;
     }
+
+
 
     public void deleteAllOrders() {
         // Get a writable database

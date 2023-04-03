@@ -62,7 +62,7 @@ public class User_SearchRestaurant extends AppCompatActivity
         getSupportActionBar().setTitle(R.string.txtFindARes);
 
         ArrayList<HashMap<String,String>> aList = new ArrayList<>();
-        for (int i = 0; i < cities.length; i++) {
+        for (int i = 0; i < restaurants.length; i++) {
             HashMap<String,String> hashMap = new HashMap<>();
             hashMap.put("imgRes", Integer.toString(restaurants[i]));
             hashMap.put("txtResName", restaurantsNames[i]);

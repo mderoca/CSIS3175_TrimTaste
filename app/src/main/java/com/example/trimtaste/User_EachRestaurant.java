@@ -24,7 +24,12 @@ public class User_EachRestaurant extends AppCompatActivity
 
     Button btnAdd, btnDelete, btnConfirm;
 
-    DatabaseHelper db;
+
+
+
+
+    //String[] menuItems = db.getMenuItems(1);
+        //Log.d("MenuItems", "menuItems = " + menuItems);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +40,10 @@ public class User_EachRestaurant extends AppCompatActivity
         btnDelete = findViewById(R.id.btnDeleteFromOrder);
         btnConfirm = findViewById(R.id.btnConfirm);
 
-
         // Instantiate the DatabaseHelper class
-        db = new DatabaseHelper(this);
+        DatabaseHelper db = new DatabaseHelper(this);
 
         String[] menuItems = db.getMenuItems(1);
-        Log.d("MenuItems", "menuItems = " + menuItems);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         int numOfColumns = 1;
@@ -62,7 +65,13 @@ public class User_EachRestaurant extends AppCompatActivity
 
     @Override
     public void onItemClick(View view, int position) {
-        int menuId = position+1;
+        // Instantiate the DatabaseHelper class
+        DatabaseHelper db = new DatabaseHelper(this);
+
+        String[] menuItems2 = db.getMenuItems(1);
+
+        int menuId = db.getMenuItemId(menuItems2[position]);
+
         boolean menuItemFound = db.displayMenuInfo(menuId);
 
         SharedPreferences userSh = getSharedPreferences("MySharedPref",MODE_PRIVATE);
