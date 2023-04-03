@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="16dp"
     android:orientation="vertical"
     android:background="@color/background"
     tools:ignore="UseCompoundDrawables">
 
     <ImageView
-        android:id="@+id/imgRestaurant"
+        android:id="@+id/imgRes"
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:contentDescription="@string/conDesRes" />
@@ -18,8 +19,21 @@
         android:id="@+id/txtResName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
+        android:layout_marginStart="18sp"
+        android:layout_marginBottom="10sp"
+        android:fontFamily="sans-serif-black"
         android:textColor="@color/BasilGreen_800"
-        android:textSize="24sp"
+        android:textSize="22sp"
+        tools:ignore="TextSizeCheck" />
+
+    <TextView
+        android:id="@+id/txtCityName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18sp"
+        android:layout_marginBottom="10sp"
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/BasilGreen_800"
+        android:textSize="22sp"
         tools:ignore="TextSizeCheck" />
 </LinearLayout>

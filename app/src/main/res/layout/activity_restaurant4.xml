@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".User_EachRestaurant">
+    tools:context=".Restaurant4">
 
     <Button
         android:id="@+id/btnDeleteFromOrder"
@@ -43,12 +43,12 @@
         android:layout_height="0dp"
         android:layout_marginBottom="9dp"
         android:contentDescription="@string/conDesRes"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/mock_restaurant1" />
+        app:srcCompat="@drawable/mock_restaurant4" />
 
     <TextView
         android:id="@+id/txtAResName"
@@ -61,14 +61,14 @@
         android:shadowDx="2.0"
         android:shadowDy="2.0"
         android:shadowRadius="5.0"
-        android:text="Chef Ron restaurant and bar"
+        android:text="Tractor Foods"
         android:textColor="@color/whity"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerView5"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="9dp"
@@ -84,10 +84,10 @@
         android:layout_marginBottom="74dp"
         android:contentDescription="@string/txtLargeImage"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerView5"
         app:layout_constraintHorizontal_bias="0.087"
-        app:layout_constraintStart_toStartOf="@+id/recyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintStart_toStartOf="@+id/recyclerView5"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView5" />
 
     <Button
         android:id="@+id/btnConfirm"

@@ -84,7 +84,7 @@
         app:layout_constraintTop_toBottomOf="@+id/orderStatusTextView" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txtFItemPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -179,6 +179,18 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/totalAmountTextView"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottomLineView" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="43dp"
+        android:layout_marginBottom="207dp"
+        android:text="@string/btnEdit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cbox1"
         app:layout_constraintTop_toBottomOf="@+id/bottomLineView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

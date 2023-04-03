@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class User_EachRestaurant extends AppCompatActivity
+public class Restaurant7 extends AppCompatActivity
         implements User_RestaurantAdapter.ItemClickListener{
 
     Integer[] foodItems ={R.drawable.seafood_pizza,R.drawable.seafood_pizza,R.drawable.seafood_pizza,
@@ -29,20 +29,20 @@ public class User_EachRestaurant extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_each_restaurant);
+        setContentView(R.layout.activity_restaurant7); //correct layout
         imageView = findViewById(R.id.imgLarge);
         btnAdd = findViewById(R.id.btnAddToOrder);
         btnDelete = findViewById(R.id.btnDeleteFromOrder);
         btnConfirm = findViewById(R.id.btnConfirm);
 
-
-        // Instantiate the DatabaseHelper class
         db = new DatabaseHelper(this);
 
-        String[] menuItems = db.getMenuItems(1);
+        //restaurant id
+        String[] menuItems = db.getMenuItems(7);
         Log.d("MenuItems", "menuItems = " + menuItems);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        //recycler view id
+        RecyclerView recyclerView = findViewById(R.id.recyclerView8);
         int numOfColumns = 1;
         recyclerView.setLayoutManager(new GridLayoutManager
                 (this,numOfColumns));
@@ -54,7 +54,7 @@ public class User_EachRestaurant extends AppCompatActivity
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(User_EachRestaurant.this, User_ConfirmOrder.class));
+                startActivity(new Intent(Restaurant7.this, User_ConfirmOrder.class));
             }
         });
 
@@ -62,7 +62,9 @@ public class User_EachRestaurant extends AppCompatActivity
 
     @Override
     public void onItemClick(View view, int position) {
-        int menuId = position+1;
+        //menu id + position
+        int menuId = position+31;
+
         boolean menuItemFound = db.displayMenuInfo(menuId);
 
         SharedPreferences userSh = getSharedPreferences("MySharedPref",MODE_PRIVATE);

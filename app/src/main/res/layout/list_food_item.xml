@@ -7,13 +7,6 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="380dp"
-        android:layout_height="120dp"
-        android:layout_weight="1"
-        app:srcCompat="@drawable/mock_res1_item1" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +16,7 @@
         android:paddingTop="8sp">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/txtFItemName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
@@ -32,7 +25,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/txtFItemPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="8sp"
@@ -42,11 +35,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:padding="8sp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8sp">
 
         <Button
             android:id="@+id/btnEditFoodOrders"
