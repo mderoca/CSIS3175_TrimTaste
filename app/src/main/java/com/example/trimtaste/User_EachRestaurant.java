@@ -65,6 +65,8 @@ public class User_EachRestaurant extends AppCompatActivity
         int menuId = position+1;
         boolean menuItemFound = db.displayMenuInfo(menuId);
 
+        SharedPreferences userSh = getSharedPreferences("MySharedPref",MODE_PRIVATE);
+
         SharedPreferences sh = getSharedPreferences("FoodSharedPref",MODE_PRIVATE);
         SharedPreferences.Editor foodEdit = sh.edit();
 
@@ -74,8 +76,9 @@ public class User_EachRestaurant extends AppCompatActivity
             String menuItemResId = db.getMenuRestaurantId();
 
             foodEdit.putString("orderNum", menuItemResId);
+            foodEdit.commit();
 
-            String user = sh.getString("username", "");
+            String user = userSh.getString("username", "");
             db.displayUserProfile(user);
             String userId = db.getUserId();
 

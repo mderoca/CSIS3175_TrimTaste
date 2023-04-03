@@ -32,12 +32,6 @@ public class User_edit_Profile extends AppCompatActivity {
 
         Button btnUpdateProfile = findViewById(R.id.btnUpdateProfile);
 
-        // Get the username of the current user
-        //String user = getIntent().getStringExtra("user");
-
-        //user shared pref
-//        SharedPreferences sharedPrefUser = getSharedPreferences("SharedPrefUser", MODE_PRIVATE);
-//        String user = sharedPrefUser.getString("username", "");
 
         // Retrieving the value using its keys the file name
         //must be same in both saving and retrieving the data

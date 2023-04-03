@@ -388,6 +388,44 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
     }
 
+    public double getMenuItemPrice(String menuItemName) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] projection = { T4COL_8 };
+        String selection = T4COL_4 + " = ?";
+        String[] selectionArgs = { menuItemName };
+
+        Cursor cursor = db.query(
+                TABLE4_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        double menuItemPrice = 0.0;
+
+        if (cursor.moveToFirst()) {
+            menuItemPrice = cursor.getDouble(cursor.getColumnIndexOrThrow(T4COL_8));
+        }
+
+        cursor.close();
+        db.close();
+
+        return menuItemPrice;
+    }
+
+    public boolean updateOpPickup(String orderNum, String opPickup) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(T4COL_7, opPickup);
+        int result = db.update(TABLE4_NAME, contentValues, T4COL_3 + "=?",
+                new String[]{orderNum});
+        return result > 0;
+    }
+
     public boolean displayMenuInfo(int menuId) {
         SQLiteDatabase db = getReadableDatabase();
         String[] projection = {T3COL_1, T3COL_2, T3COL_3, T3COL_4};
@@ -485,23 +523,25 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public boolean displayOrderInfo(String orderNum) {
         SQLiteDatabase db = getReadableDatabase();
-        String[] projection = {T4COL_1, T4COL_2, T4COL_3, T4COL_4, T4COL_5,
-                T4COL_6, T4COL_7, T4COL_8};
+        String[] projection = {T4COL_3, T4COL_4, T4COL_5,
+                T4COL_7, T4COL_8};
         String selection = T4COL_3 + " = ?";
         String[] selectionArgs = {orderNum};
         Cursor cursor = db.query(TABLE4_NAME, projection, selection, selectionArgs, null, null, null);
 
-        boolean userFound = false;
+        Log.d("OrderNum", "orderNum: " + orderNum);
+
+        boolean orderFound = false;
         if (cursor.moveToFirst()) {
             nOrderNum = cursor.getString(cursor.getColumnIndexOrThrow(T4COL_3));
             nItemName = cursor.getString(cursor.getColumnIndexOrThrow(T4COL_4));
             nRestaurantId = cursor.getString(cursor.getColumnIndexOrThrow(T4COL_5));
             nOpPickup = cursor.getString(cursor.getColumnIndexOrThrow(T4COL_7));
             nItemPrice = cursor.getString(cursor.getColumnIndexOrThrow(T4COL_8));
-            userFound = true;
+            orderFound = true;
         }
         cursor.close();
-        return userFound;
+        return orderFound;
     }
 
     public String getnOrderNum() {
