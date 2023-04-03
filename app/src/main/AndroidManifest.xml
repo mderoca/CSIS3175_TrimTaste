@@ -12,6 +12,27 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".Restaurant8"
+            android:exported="false" />
+        <activity
+            android:name=".Restaurant7"
+            android:exported="false" />
+        <activity
+            android:name=".Restaurant6"
+            android:exported="false" />
+        <activity
+            android:name=".Restaurant5"
+            android:exported="false" />
+        <activity
+            android:name=".Restaurant4"
+            android:exported="false" />
+        <activity
+            android:name=".Restaurant3"
+            android:exported="false" />
+        <activity
+            android:name=".Restaurant2"
+            android:exported="false" />
+        <activity
             android:name=".User_MenuActivity"
             android:exported="false" />
         <activity

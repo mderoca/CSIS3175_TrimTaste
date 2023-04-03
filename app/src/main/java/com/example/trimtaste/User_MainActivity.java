@@ -30,7 +30,7 @@ public class User_MainActivity extends AppCompatActivity {
 
                 boolean isInserted = db.addRestaurantData();
                 if (isInserted) {
-                    Toast.makeText(User_MainActivity.this, "Data inserted successfully", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(User_MainActivity.this, "Data inserted successfully", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(User_MainActivity.this, "Data not inserted", Toast.LENGTH_SHORT).show();
                 }
@@ -57,7 +57,7 @@ public class User_MainActivity extends AppCompatActivity {
         btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(User_MainActivity.this, User_History.class));
+                startActivity(new Intent(User_MainActivity.this, Usser_History.class));
             }
         });
 
@@ -73,6 +73,8 @@ public class User_MainActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                db.deleteAllMenuItems();
+                db.deleteAllOrders();
                 startActivity(new Intent(User_MainActivity.this, Login.class));
             }
         });

@@ -148,5 +148,18 @@
         <item>Admin</item>
         <item>Customer</item>
     </string-array>
+    <string name="title_activity_restaurant3">Restaurant3</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="txtSmallImage">a small img</string>
+    <string name="txtLargeImage">a large img</string>
+    <string name="btnAddToOrder">Add to order</string>
+    <string name="btnDeleteFromOrder">Delete from order</string>
 
 </resources>

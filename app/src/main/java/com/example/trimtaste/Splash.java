@@ -10,10 +10,16 @@ import java.util.TimerTask;
 
 public class Splash extends AppCompatActivity {
 
+
+    DatabaseHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        db = new DatabaseHelper(this);
+
+
 
         TimerTask task = new TimerTask() {
             @Override
@@ -24,6 +30,6 @@ public class Splash extends AppCompatActivity {
         };
 
         Timer timer = new Timer();
-        timer.schedule(task,5000);
+        timer.schedule(task,6000);
     }
 }

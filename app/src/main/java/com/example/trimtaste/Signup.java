@@ -2,6 +2,7 @@ package com.example.trimtaste;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -108,6 +109,8 @@ public class Signup extends AppCompatActivity {
                                 repassword.setText("");
                                 province.setSelection(0);
                                 userRole.setSelection(0);
+
+                                startActivity(new Intent(Signup.this, Login.class));
 
                             } else {
                                 Toast.makeText(Signup.this, "Registration failed.", Toast.LENGTH_LONG).show();

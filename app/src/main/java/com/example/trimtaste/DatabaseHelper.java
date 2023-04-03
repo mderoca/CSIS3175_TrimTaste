@@ -15,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     final static String DATABASE_NAME = "FoodApp.db";
     final String[] food ={"Seafood Pizza \n $10.00", "Cajun Chicken Burger \n $12.00", "Stir-fry spaghetti \n $15.00", "Chicken&Celery \n $10.00", "pesto pasta \n $20.00"};
 
-    final static int DATABASE_VERSION = 5;
+    final static int DATABASE_VERSION = 6;
 
 
     //-------------------User Table --------------------
@@ -35,6 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     final static String T1COL_9 = "Password";
     final static String T1COL_10 = "UserRole";
 
+    private String nUserId;
     private String nStreet;
     private String nCity;
     private String nProvince;
@@ -70,13 +71,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     final static String T3COL_2 = "MenuItemName";
     final static String T3COL_3 = "MenuItemPrice";
     final static String T3COL_4 = "RestaurantID";
-    //CREATE TABLE Menu (
-//            MenuId INT PRIMARY KEY,
-//            MenuItemName VARCHAR(50),
-//    MenuItemPrice DECIMAL(10, 2),
-//    RestaurantID INT,
-//    FOREIGN KEY (RestaurantID) REFERENCES Restaurant(RestaurantID)
-//            );
+
+    private String nMenuId;
+    private String nMenuItemName;
+    private String nMenuItemPrice;
+    private String nMenuRestaurantId;
+
     //-------------------------------------------------------------------
 
     //-----------------------ORDERS TABLE---------------------------
@@ -84,10 +84,23 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     final static String TABLE4_NAME = "ORDERS";
     final static String T4COL_1 = "OrderId";
     final static String T4COL_2 = "UserId";
-    final static String T4COL_3 = "RestaurantId";
-    final static String T4COL_4 = "MenuID";
-    final static String T4COL_5 = "OrderDate";
-    final static String T4COL_6 = "OpPickup";
+
+    final static String T4COL_3 = "OrderNumber";
+
+    final static String T4COL_4 = "MenuItemName";
+    final static String T4COL_5 = "RestaurantId";
+    final static String T4COL_6 = "MenuID";
+    final static String T4COL_7 = "OpPickup";
+
+    final static String T4COL_8 = "MenuItemPrice";
+
+    private String nOrderNum;
+    private String nItemName;
+    private String nRestaurantId;
+    private String nOpPickup;
+    private String nItemPrice;
+
+
     //    CREATE TABLE Orders (
 //            OrderId INT PRIMARY KEY,
 //            UserId INT,
@@ -148,8 +161,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         //Creating Order
         String ordersTable = "CREATE TABLE " + TABLE4_NAME + " (" + T4COL_1 +
-                " INTEGER PRIMARY KEY AUTOINCREMENT, " + T4COL_2 + " INTEGER, " + T4COL_3 + " INTEGER, " +
-                T4COL_4 + " INTEGER, " + T4COL_5 + " DATETIME, " + T4COL_6 + " TEXT, " +
+                " INTEGER PRIMARY KEY AUTOINCREMENT, " + T4COL_2 + " TEXT, " + T4COL_3 + " TEXT, " +
+                T4COL_4 + " TEXT, " + T4COL_5 + " TEXT, " + T4COL_6 + " TEXT," + T4COL_7 + " TEXT," +
+                T4COL_8 + " TEXT," +
                 "FOREIGN KEY(" + T4COL_2 + ") REFERENCES " + TABLE1_NAME + "(" + T1COL_1 + "), " +
                 "FOREIGN KEY(" + T4COL_3 + ") REFERENCES " + TABLE2_NAME + "(" + T2COL_1 + "), " +
                 "FOREIGN KEY(" + T4COL_4 + ") REFERENCES " + TABLE3_NAME + "(" + T3COL_1 + ")" +
@@ -313,7 +327,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
 
-    public boolean addMenuItem(String itemName, double itemPrice, int restaurantId) {
+//    public boolean addMenuItem(String itemName, double itemPrice, int restaurantId) {
     public boolean addMenuItems(String[] food, int restaurantId) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -333,21 +347,192 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return true;
     }
 
+    public String[] getMenuItems(int restaurantId) {
+        // Define the columns to retrieve
+        String[] columns = {"MenuItemName"};
 
-    public boolean addOrder(int userId, int restaurantId, int menuId, String orderDate, String OpPickup) {
+        // Define the WHERE clause to match the desired restaurantId
+        String selection = "RestaurantID = ?";
+        String[] selectionArgs = { String.valueOf(restaurantId) };
+
+        // Get a readable database
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Execute the query and retrieve the results
+        Cursor cursor = db.query(TABLE3_NAME, columns, selection, selectionArgs, null, null, null);
+        String[] menuItemNames = new String[cursor.getCount()];
+        int i = 0;
+        while (cursor.moveToNext()) {
+            String menuItemName = cursor.getString(cursor.getColumnIndexOrThrow(T3COL_2));
+            menuItemNames[i] = menuItemName;
+            i++;
+        }
+
+        // Close the cursor and database
+        cursor.close();
+        db.close();
+
+        return menuItemNames;
+    }
+
+    public boolean checkMenu(int restaurantId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM MENU WHERE RestaurantID = ?",
+                new String[]{String.valueOf(restaurantId)});
+
+        //if user exists
+        if (cursor.getCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean displayMenuInfo(int menuId) {
+        SQLiteDatabase db = getReadableDatabase();
+        String[] projection = {T3COL_1, T3COL_2, T3COL_3, T3COL_4};
+        String selection = T3COL_1 + " = ?";
+        String[] selectionArgs = {String.valueOf(menuId)};
+        Cursor cursor = db.query(TABLE3_NAME, projection, selection, selectionArgs, null, null, null);
+
+        boolean userFound = false;
+        if (cursor.moveToFirst()) {
+            nMenuId = cursor.getString(cursor.getColumnIndexOrThrow(T3COL_1));
+            nMenuItemName = cursor.getString(cursor.getColumnIndexOrThrow(T3COL_2));
+            nMenuItemPrice = cursor.getString(cursor.getColumnIndexOrThrow(T3COL_3));
+            nMenuRestaurantId = cursor.getString(cursor.getColumnIndexOrThrow(T3COL_4));
+            userFound = true;
+        }
+        cursor.close();
+        return userFound;
+    }
+
+    public String menuId() {
+        return nMenuId;
+    }
+
+    public String getMenuItemName() {
+        return nMenuItemName;
+    }
+
+    public String getMenuItemPrice() {
+        return nMenuItemPrice;
+    }
+
+    public String getMenuRestaurantId() {
+        return nMenuRestaurantId;
+    }
+
+    public void deleteAllMenuItems() {
+        // Get a writable database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Execute the delete query
+        db.delete(TABLE3_NAME, null, null);
+
+//        // Close the database
+//        db.close();
+    }
+
+
+
+    public boolean addOrder(String userId, String orderNum, String restaurantId, String menuId,
+                            String menuItemName, String opPickup, String menuItemPrice) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(T4COL_2, userId);
-        values.put(T4COL_3, restaurantId);
-        values.put(T4COL_4, menuId);
-        values.put(T4COL_5, orderDate);
-        values.put(T4COL_6, OpPickup);
+        values.put(T4COL_3, orderNum);
+        values.put(T4COL_4, menuItemName);
+        values.put(T4COL_5, restaurantId);
+        values.put(T4COL_6, menuId);
+        values.put(T4COL_7, opPickup);
+        values.put(T4COL_8, menuItemPrice);
 
         long l = db.insert(TABLE4_NAME, null, values);
         if (l > 0)
             return true;
         else
             return false;
+    }
+
+    public String[] getItemsFromOrder(String orderNum) {
+        // Define the columns to retrieve
+        String[] columns = {"MenuItemName"};
+
+        // Define the WHERE clause to match the desired restaurantId
+        String selection = "OrderNumber = ?";
+        String[] selectionArgs = { orderNum };
+
+        // Get a readable database
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Execute the query and retrieve the results
+        Cursor cursor = db.query(TABLE4_NAME, columns, selection, selectionArgs, null, null, null);
+        String[] orderItemNames = new String[cursor.getCount()];
+        int i = 0;
+        while (cursor.moveToNext()) {
+            String orderItemName = cursor.getString(cursor.getColumnIndexOrThrow(T3COL_2));
+            orderItemNames[i] = orderItemName;
+            i++;
+        }
+
+        // Close the cursor and database
+        cursor.close();
+        db.close();
+
+        return orderItemNames;
+    }
+
+    public boolean displayOrderInfo(String orderNum) {
+        SQLiteDatabase db = getReadableDatabase();
+        String[] projection = {T4COL_1, T4COL_2, T4COL_3, T4COL_4, T4COL_5,
+                T4COL_6, T4COL_7, T4COL_8};
+        String selection = T4COL_3 + " = ?";
+        String[] selectionArgs = {orderNum};
+        Cursor cursor = db.query(TABLE4_NAME, projection, selection, selectionArgs, null, null, null);
+
+        boolean userFound = false;
+        if (cursor.moveToFirst()) {
+            nOrderNum = cursor.getString(cursor.getColumnIndexOrThrow(T4COL_3));
+            nItemName = cursor.getString(cursor.getColumnIndexOrThrow(T4COL_4));
+            nRestaurantId = cursor.getString(cursor.getColumnIndexOrThrow(T4COL_5));
+            nOpPickup = cursor.getString(cursor.getColumnIndexOrThrow(T4COL_7));
+            nItemPrice = cursor.getString(cursor.getColumnIndexOrThrow(T4COL_8));
+            userFound = true;
+        }
+        cursor.close();
+        return userFound;
+    }
+
+    public String getnOrderNum() {
+        return nOrderNum;
+    }
+
+    public String getnItemName() {
+        return nItemName;
+    }
+
+    public String getnRestaurantId() {
+        return nRestaurantId;
+    }
+
+    public String getnOpPickup() {
+        return nOpPickup;
+    }
+
+    public String getnItemPrice() {
+        return nItemPrice;
+    }
+
+    public void deleteAllOrders() {
+        // Get a writable database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Execute the delete query
+        db.delete(TABLE4_NAME, null, null);
+
+//        // Close the database
+//        db.close();
     }
 
     public boolean addBill(int orderId, double totalAmount, String billDate) {
@@ -424,7 +609,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public boolean displayUserProfile(String username) {
         SQLiteDatabase db = getReadableDatabase();
-        String[] projection = {T1COL_2, T1COL_3, T1COL_4, T1COL_5, T1COL_6, T1COL_7,
+        String[] projection = {T1COL_1, T1COL_2, T1COL_3, T1COL_4, T1COL_5, T1COL_6, T1COL_7,
                 T1COL_8, T1COL_9};
         String selection = T1COL_8 + " = ?";
         String[] selectionArgs = {username};
@@ -432,7 +617,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         boolean userFound = false;
         if (cursor.moveToFirst()) {
-            //int userId = cursor.getString(cursor.getColumnIndexOrThrow(T1COL_1));
+            nUserId = cursor.getString(cursor.getColumnIndexOrThrow(T1COL_1));
             nStreet = cursor.getString(cursor.getColumnIndexOrThrow(T1COL_2));
             nCity = cursor.getString(cursor.getColumnIndexOrThrow(T1COL_3));
             nProvince = cursor.getString(cursor.getColumnIndexOrThrow(T1COL_4));
@@ -442,8 +627,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             nUsername = cursor.getString(cursor.getColumnIndexOrThrow(T1COL_8));
             nPassword = cursor.getString(cursor.getColumnIndexOrThrow(T1COL_9));
 
-            // Update UI with user information
-            // ...
 
             userFound = true;
         }
@@ -451,6 +634,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return userFound;
     }
 
+    public String getUserId() {
+        return nUserId;
+    }
     public String getStreet() {
         return nStreet;
     }
