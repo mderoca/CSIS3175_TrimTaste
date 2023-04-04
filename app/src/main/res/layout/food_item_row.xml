@@ -22,6 +22,12 @@
             android:layout_height="wrap_content"
             android:text="Food Item Price"/>
 
+        <Button
+            android:id="@+id/btndeleteItem"
+            android:layout_width="139dp"
+            android:layout_height="wrap_content"
+            android:text="@string/btnRemove" />
+
     </LinearLayout>
 
 </LinearLayout>

@@ -161,8 +161,9 @@
     <string name="txtLargeImage">a large img</string>
     <string name="btnAddToOrder">Add to order</string>
     <string name="btnDeleteFromOrder">Delete from order</string>
-    <string name="hintResaurantId">"Type your Restaurant ID "</string>
+    <string name="hintResaurantId">"Type your Restaurant Code"</string>
     <string name="txtAddMoreManu">Add More Menu</string>
     <string name="btnListItems">List Items</string>
+    <string name="btnRemove">Remove</string>
 
 </resources>

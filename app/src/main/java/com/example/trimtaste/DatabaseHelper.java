@@ -1,8 +1,11 @@
 package com.example.trimtaste;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -193,6 +196,14 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS " + TABLE1_NAME);
         onCreate(db);
     }
+    public boolean deleteMenuItem(int restaurantId, String itemName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int result = db.delete(TABLE3_NAME, T3COL_4 + " = ? AND " + T3COL_2 + " = ?", new String[] { String.valueOf(restaurantId), itemName });
+        db.close();
+
+        return result != -1;
+    }
 
     public boolean addData(String street, String city, String province, String postalCode,
                            String email, String phoneNum,
@@ -330,40 +341,40 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
 
-//    public boolean addMenuItem(String itemName, double itemPrice, int restaurantId) {
-public boolean addMenuItems(String[] food, int restaurantId) {
-    SQLiteDatabase db = this.getWritableDatabase();
+    //    public boolean addMenuItem(String itemName, double itemPrice, int restaurantId) {
+    public boolean addMenuItems(String[] food, int restaurantId) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
-    // Check if the restaurant name already exists in the database
-    String restaurantName = "Restaurant " + restaurantId;
-    if (isRestaurantNameExists(db, restaurantName)) {
-        return false;
-    }
-
-    // Insert the restaurant name into the database
-    ContentValues restaurant = new ContentValues();
-    restaurant.put(T2COL_2, restaurantName);
-    long restaurantResult = db.insert(TABLE2_NAME, null, restaurant);
-    if (restaurantResult == -1) {
-        return false;
-    }
-
-    // Insert the menu items into the database
-    for (String item : food) {
-        String[] parts = item.split("\n");
-        String itemName = parts[0].trim();
-        double itemPrice = Double.parseDouble(parts[1].replaceAll("[^\\d.]", ""));
-        ContentValues menuItem = new ContentValues();
-        menuItem.put(T3COL_2, itemName);
-        menuItem.put(T3COL_3, itemPrice);
-        menuItem.put(T3COL_4, restaurantId);
-        long menuItemResult = db.insert(TABLE3_NAME, null, menuItem);
-        if (menuItemResult == -1) {
+        // Check if the restaurant name already exists in the database
+        String restaurantName = "Restaurant " + restaurantId;
+        if (isRestaurantNameExists(db, restaurantName)) {
             return false;
         }
+
+        // Insert the restaurant name into the database
+        ContentValues restaurant = new ContentValues();
+        restaurant.put(T2COL_2, restaurantName);
+        long restaurantResult = db.insert(TABLE2_NAME, null, restaurant);
+        if (restaurantResult == -1) {
+            return false;
+        }
+
+        // Insert the menu items into the database
+        for (String item : food) {
+            String[] parts = item.split("\n");
+            String itemName = parts[0].trim();
+            double itemPrice = Double.parseDouble(parts[1].replaceAll("[^\\d.]", ""));
+            ContentValues menuItem = new ContentValues();
+            menuItem.put(T3COL_2, itemName);
+            menuItem.put(T3COL_3, itemPrice);
+            menuItem.put(T3COL_4, restaurantId);
+            long menuItemResult = db.insert(TABLE3_NAME, null, menuItem);
+            if (menuItemResult == -1) {
+                return false;
+            }
+        }
+        return true;
     }
-    return true;
-}
 
     public boolean menuItemExists(String menuItemName) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -380,33 +391,27 @@ public boolean addMenuItems(String[] food, int restaurantId) {
 
 
     public String[] getMenuItems(int restaurantId) {
-        // Define the columns to retrieve
-
         String[] columns = {"MenuItemName"};
-
-        // Define the WHERE clause to match the desired restaurantId
         String selection = "RestaurantID = ?";
         String[] selectionArgs = { String.valueOf(restaurantId) };
+        String[] menuItemNames = null;
 
-        // Get a readable database
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        // Execute the query and retrieve the results
-        Cursor cursor = db.query(TABLE3_NAME, columns, selection, selectionArgs, null, null, null);
-        String[] menuItemNames = new String[cursor.getCount()];
-        int i = 0;
-        while (cursor.moveToNext()) {
-            String menuItemName = cursor.getString(cursor.getColumnIndexOrThrow(T3COL_2));
-            menuItemNames[i] = menuItemName;
-            i++;
+        try (SQLiteDatabase db = this.getReadableDatabase()) {
+            try (Cursor cursor = db.query(TABLE3_NAME, columns, selection, selectionArgs, null, null, null)) {
+                menuItemNames = new String[cursor.getCount()];
+                int i = 0;
+                while (cursor.moveToNext()) {
+                    String menuItemName = cursor.getString(cursor.getColumnIndexOrThrow(T3COL_2));
+                    menuItemNames[i++] = menuItemName;
+                }
+            }
+        } catch (SQLException e) {
+            Log.e(TAG, "Error retrieving menu items", e);
         }
-
-        // Close the cursor and database
-        cursor.close();
-        db.close();
 
         return menuItemNames;
     }
+
 
     public boolean checkMenu(int restaurantId) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -479,6 +484,8 @@ public boolean addMenuItems(String[] food, int restaurantId) {
         cursor.close();
         return userFound;
     }
+
+
 
     public String menuId() {
         return nMenuId;
@@ -748,6 +755,17 @@ public boolean addMenuItems(String[] food, int restaurantId) {
         cursor.close();
         return userFound;
     }
+
+    public boolean addMenuItem(int restaurantId, String name, double price) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(T3COL_2, name);
+        values.put(T3COL_3, price);
+        values.put(T3COL_4, restaurantId);
+        long result = db.insert(TABLE3_NAME, null, values);
+        return result != -1;
+    }
+
 
     public String getUserId() {
         return nUserId;

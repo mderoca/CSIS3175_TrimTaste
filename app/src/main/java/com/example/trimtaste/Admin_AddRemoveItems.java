@@ -22,11 +22,10 @@ import java.util.List;
 
 public class Admin_AddRemoveItems extends AppCompatActivity {
 
-    DatabaseHelper databaseHelper;
-
-    private EditText newItemName, newItemPrice;
-    private Button btnListItems, btnAddItems;
-
+    private DatabaseHelper databaseHelper;
+    private EditText newItemName, newItemPrice, restaurantIdEditText;
+    private Button btnListItems, btnAddItems, btnDelete;
+    private int restaurantId;
     private List<FoodItem> foodItems = new ArrayList<>();
 
     @Override
@@ -38,29 +37,30 @@ public class Admin_AddRemoveItems extends AppCompatActivity {
 
         newItemName = findViewById(R.id.edTxtNewItem);
         newItemPrice = findViewById(R.id.edTxtNewItemPrice);
+        restaurantIdEditText = findViewById(R.id.restaurantIdEditText);
         btnAddItems = findViewById(R.id.btnAddItems);
 
-        DatabaseHelper dbHelper = new DatabaseHelper(Admin_AddRemoveItems.this);
+        databaseHelper = new DatabaseHelper(this);
 
-        // Initialize food items
-        initFoodItems();
         // Set up ListItems button
         btnListItems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Get menu items from the database
-                EditText restaurantIdEditText = findViewById(R.id.restaurantIdEditText);
                 String restaurantIdString = restaurantIdEditText.getText().toString();
 
                 if (!TextUtils.isEmpty(restaurantIdString)) {
-                    int enteredRestaurantId = Integer.parseInt(restaurantIdString);
+                    restaurantId = Integer.parseInt(restaurantIdString);
+
+                    // Clear the foodItems list before adding new items
+                    foodItems.clear();
 
                     // Get menu items for the entered restaurant ID
-                    String[] menuItemNames = dbHelper.getMenuItems(enteredRestaurantId);
+                    String[] menuItemNames = databaseHelper.getMenuItems(restaurantId);
 
                     // For each menu item, create a new FoodItem object and add it to the foodItems list
                     for (String menuItemName : menuItemNames) {
-                        double menuItemPrice = dbHelper.getMenuItemPrice(menuItemName);
+                        double menuItemPrice = databaseHelper.getMenuItemPrice(menuItemName);
                         FoodItem foodItem = new FoodItem(menuItemName, menuItemPrice);
                         foodItems.add(foodItem);
                     }
@@ -73,10 +73,8 @@ public class Admin_AddRemoveItems extends AppCompatActivity {
             }
         });
 
-
         // Set up add button
-        findViewById(R.id.btnAddItems).setOnClickListener(new View.OnClickListener() {
-            boolean isAdded;
+        btnAddItems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Handle add button click
@@ -86,17 +84,17 @@ public class Admin_AddRemoveItems extends AppCompatActivity {
                 if (newName.equals("") || newPrice.equals("")) {
                     Toast.makeText(Admin_AddRemoveItems.this, "Please fill in both fields", Toast.LENGTH_LONG).show();
                 } else {
-//                        isAdded = databaseHelper.addMenuItems(newName, newPrice);
+                    boolean isAdded = databaseHelper.addMenuItem(restaurantId, newName, Double.parseDouble(newPrice));
 
-                        if (isAdded) {
-                            Toast.makeText(Admin_AddRemoveItems.this, "New item successfully added!", Toast.LENGTH_LONG).show();
-                            newItemName.setText("");
-                            newItemPrice.setText("");
-                            } else {
-                                Toast.makeText(Admin_AddRemoveItems.this, "Failed to add.", Toast.LENGTH_LONG).show();
-                            }
+                    if (isAdded) {
+                        Toast.makeText(Admin_AddRemoveItems.this, "New item successfully added!", Toast.LENGTH_LONG).show();
+                        newItemName.setText("");
+                        newItemPrice.setText("");
+                    } else {
+                        Toast.makeText(Admin_AddRemoveItems.this, "Failed to add.", Toast.LENGTH_LONG).show();
                     }
                 }
+            }
         });
     }
 
@@ -136,8 +134,12 @@ public class Admin_AddRemoveItems extends AppCompatActivity {
 
             View itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.food_item_row, parent, false);
-            return new FoodItemViewHolder(itemView);
+            FoodItemViewHolder viewHolder = new FoodItemViewHolder(itemView);
 
+            // Move btnDelete initialization to here
+            viewHolder.btnDelete = itemView.findViewById(R.id.btndeleteItem);
+
+            return viewHolder;
         }
 
         @Override
@@ -160,14 +162,35 @@ public class Admin_AddRemoveItems extends AppCompatActivity {
         ImageView imageView;
         TextView textView;
         TextView txtPrice; // declare txtPrice here
+        Button btnDelete;
 
         public FoodItemViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.image);
             textView = itemView.findViewById(R.id.txtFoodItem);
             txtPrice = itemView.findViewById(R.id.txtPrice); // initialize txtPrice here
+            btnDelete = itemView.findViewById(R.id.btndeleteItem);
             itemView.setOnClickListener(this);
-        }
+            btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        foodItems.remove(position);
+                    }
+
+                        // Get the food item at the clicked position
+                    FoodItem foodItem = foodItems.get(position);
+
+                    // Delete the item from the database
+                    databaseHelper.deleteMenuItem(restaurantId, foodItem.getName());
+
+                    // Remove the item from the list
+                    foodItems.remove(position);
+
+                }
+        })
+        ;}
 
         @Override
         public void onClick(View v) {
