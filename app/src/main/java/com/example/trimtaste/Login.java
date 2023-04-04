@@ -94,6 +94,8 @@ public class Login extends AppCompatActivity {
                     // Show an error message or take other actions if the user's data was not found
                     Toast.makeText(Login.this, "User data not found", Toast.LENGTH_SHORT).show();
                 }
+
+
                 databaseHelper.addMenuItems(res1Food, 1);
                 databaseHelper.addMenuItems(res2Food, 2);
                 databaseHelper.addMenuItems(res3Food, 3);
