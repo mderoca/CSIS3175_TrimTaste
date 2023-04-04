@@ -62,12 +62,8 @@ public class Restaurant2 extends AppCompatActivity
 
     @Override
     public void onItemClick(View view, int position) {
-        // Instantiate the DatabaseHelper class
-        DatabaseHelper db = new DatabaseHelper(this);
-
-        String[] menuItems2 = db.getMenuItems(2);
-
-        int menuId = db.getMenuItemId(menuItems2[position]);
+        //menu id + position
+        int menuId = position+6;
 
         boolean menuItemFound = db.displayMenuInfo(menuId);
 
@@ -97,9 +93,8 @@ public class Restaurant2 extends AppCompatActivity
                 @Override
                 public void onClick(View view) {
                     String menuIdd = Integer.toString(menuId);
-                    String status = "Ordered";
                     db.addOrder(userId, menuItemResId, menuItemResId, menuIdd,
-                            menuItemName, " ", menuItemPrice, status);
+                            menuItemName, " ", menuItemPrice);
 
 
                 }

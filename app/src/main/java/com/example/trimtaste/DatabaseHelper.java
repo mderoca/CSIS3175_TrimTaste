@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     final static String DATABASE_NAME = "FoodApp.db";
     final String[] food ={"Seafood Pizza \n $10.00", "Cajun Chicken Burger \n $12.00", "Stir-fry spaghetti \n $15.00", "Chicken&Celery \n $10.00", "pesto pasta \n $20.00"};
 
-    final static int DATABASE_VERSION = 7;
+    final static int DATABASE_VERSION = 6;
 
 
     //-------------------User Table --------------------
@@ -96,7 +96,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     final static String T4COL_7 = "OpPickup";
 
     final static String T4COL_8 = "MenuItemPrice";
-    final static String T4COL_9 = "Status";
 
     private String nOrderNum;
     private String nItemName;
@@ -167,7 +166,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         String ordersTable = "CREATE TABLE " + TABLE4_NAME + " (" + T4COL_1 +
                 " INTEGER PRIMARY KEY AUTOINCREMENT, " + T4COL_2 + " TEXT, " + T4COL_3 + " TEXT, " +
                 T4COL_4 + " TEXT, " + T4COL_5 + " TEXT, " + T4COL_6 + " TEXT," + T4COL_7 + " TEXT," +
-                T4COL_8 + " TEXT," + T4COL_9 + " TEXT," +
+                T4COL_8 + " TEXT," +
                 "FOREIGN KEY(" + T4COL_2 + ") REFERENCES " + TABLE1_NAME + "(" + T1COL_1 + "), " +
                 "FOREIGN KEY(" + T4COL_3 + ") REFERENCES " + TABLE2_NAME + "(" + T2COL_1 + "), " +
                 "FOREIGN KEY(" + T4COL_4 + ") REFERENCES " + TABLE3_NAME + "(" + T3COL_1 + ")" +
@@ -332,27 +331,57 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
 
 //    public boolean addMenuItem(String itemName, double itemPrice, int restaurantId) {
-    public boolean addMenuItems(String[] food, int restaurantId) {
-        SQLiteDatabase db = this.getWritableDatabase();
+public boolean addMenuItems(String[] food, int restaurantId) {
+    SQLiteDatabase db = this.getWritableDatabase();
 
-        for (String item : food) {
-            String[] parts = item.split("\n");
-            String itemName = parts[0].trim();
-            double itemPrice = Double.parseDouble(parts[1].replaceAll("[^\\d.]", ""));
-            ContentValues menuItem = new ContentValues();
-            menuItem.put(T3COL_2, itemName);
-            menuItem.put(T3COL_3, itemPrice);
-            menuItem.put(T3COL_4, restaurantId);
-            long result = db.insert(TABLE3_NAME, null, menuItem);
-            if (result == -1) {
-                return false;
-            }
-        }
-        return true;
+    // Check if the restaurant name already exists in the database
+    String restaurantName = "Restaurant " + restaurantId;
+    if (isRestaurantNameExists(db, restaurantName)) {
+        return false;
     }
+
+    // Insert the restaurant name into the database
+    ContentValues restaurant = new ContentValues();
+    restaurant.put(T2COL_2, restaurantName);
+    long restaurantResult = db.insert(TABLE2_NAME, null, restaurant);
+    if (restaurantResult == -1) {
+        return false;
+    }
+
+    // Insert the menu items into the database
+    for (String item : food) {
+        String[] parts = item.split("\n");
+        String itemName = parts[0].trim();
+        double itemPrice = Double.parseDouble(parts[1].replaceAll("[^\\d.]", ""));
+        ContentValues menuItem = new ContentValues();
+        menuItem.put(T3COL_2, itemName);
+        menuItem.put(T3COL_3, itemPrice);
+        menuItem.put(T3COL_4, restaurantId);
+        long menuItemResult = db.insert(TABLE3_NAME, null, menuItem);
+        if (menuItemResult == -1) {
+            return false;
+        }
+    }
+    return true;
+}
+
+    public boolean menuItemExists(String menuItemName) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] projection = {T3COL_2};
+        String selection = T3COL_2 + " = ?";
+        String[] selectionArgs = {menuItemName};
+        Cursor cursor = db.query(TABLE3_NAME, projection, selection, selectionArgs,
+                null, null, null);
+        boolean exists = cursor.moveToFirst();
+        cursor.close();
+        db.close();
+        return exists;
+    }
+
 
     public String[] getMenuItems(int restaurantId) {
         // Define the columns to retrieve
+
         String[] columns = {"MenuItemName"};
 
         // Define the WHERE clause to match the desired restaurantId
@@ -392,10 +421,10 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public int getMenuItemId(String menuItemName) {
+    public double getMenuItemPrice(String menuItemName) {
         SQLiteDatabase db = getReadableDatabase();
 
-        String[] projection = { T3COL_1 };
+        String[] projection = { T3COL_3 };
         String selection = T3COL_2 + " = ?";
         String[] selectionArgs = { menuItemName };
 
@@ -409,39 +438,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 null
         );
 
-        int menuItemId = 0;
+        double menuItemPrice = 0;
 
         if (cursor.moveToFirst()) {
-            menuItemId = cursor.getInt(cursor.getColumnIndexOrThrow(T3COL_1));
-        }
-
-        cursor.close();
-        db.close();
-
-        return menuItemId;
-    }
-
-    public double getMenuItemPrice(String menuItemName) {
-        SQLiteDatabase db = getReadableDatabase();
-
-        String[] projection = { T4COL_8 };
-        String selection = T4COL_4 + " = ?";
-        String[] selectionArgs = { menuItemName };
-
-        Cursor cursor = db.query(
-                TABLE4_NAME,
-                projection,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null
-        );
-
-        double menuItemPrice = 0.0;
-
-        if (cursor.moveToFirst()) {
-            menuItemPrice = cursor.getDouble(cursor.getColumnIndexOrThrow(T4COL_8));
+            String menuItemPriceString = cursor.getString(cursor.getColumnIndexOrThrow(T3COL_3));
+            menuItemPrice = Double.parseDouble(menuItemPriceString);
         }
 
         cursor.close();
@@ -449,6 +450,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         return menuItemPrice;
     }
+
 
     public boolean updateOpPickup(String orderNum, String opPickup) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -508,7 +510,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
 
     public boolean addOrder(String userId, String orderNum, String restaurantId, String menuId,
-                            String menuItemName, String opPickup, String menuItemPrice, String status) {
+                            String menuItemName, String opPickup, String menuItemPrice) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(T4COL_2, userId);
@@ -518,7 +520,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         values.put(T4COL_6, menuId);
         values.put(T4COL_7, opPickup);
         values.put(T4COL_8, menuItemPrice);
-        values.put(T4COL_9, status);
 
         long l = db.insert(TABLE4_NAME, null, values);
         if (l > 0)
@@ -565,10 +566,9 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 T4COL_3,
                 T4COL_4,
                 T4COL_5,
-                //T4COL_6,
+                T4COL_6,
                 T4COL_7,
-                T4COL_8,
-                T4COL_9
+                T4COL_8
         };
 
         String selection = T4COL_3 + " = ?";
@@ -580,13 +580,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 String order = "";
                 //order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_1)) + ", ";
                 //order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_2)) + ", ";
-                order += "Order Number: " + cursor.getString(cursor.getColumnIndexOrThrow(T4COL_3)) + ", ";
-                order += "Item name: " + cursor.getString(cursor.getColumnIndexOrThrow(T4COL_4)) + ", ";
-                order += "Restaurant ID: " + cursor.getString(cursor.getColumnIndexOrThrow(T4COL_5)) + ", ";
-                //order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_6)) + ", ";
+                order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_3)) + ", ";
+                order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_4)) + ", ";
+                order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_5)) + ", ";
+                order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_6)) + ", ";
                 order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_7)) + ", ";
-                order += "Item Price: " + cursor.getString(cursor.getColumnIndexOrThrow(T4COL_8));
-                order += "Status: " + cursor.getString(cursor.getColumnIndexOrThrow(T4COL_9));
+                order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_8));
                 ordersList.add(order);
             } while (cursor.moveToNext());
         }
@@ -594,25 +593,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         cursor.close();
         db.close();
         return ordersList;
-    }
-
-    public List<String> getOrderNumbers() {
-        List<String> orderNumbers = new ArrayList<>();
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT DISTINCT OrderNumber FROM " + TABLE4_NAME, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                String orderNumber = cursor.getString(cursor.getColumnIndexOrThrow(T4COL_3));
-                orderNumbers.add(orderNumber);
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        db.close();
-
-        return orderNumbers;
     }
 
 
@@ -658,8 +638,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public String getnItemPrice() {
         return nItemPrice;
     }
-
-
 
     public void deleteAllOrders() {
         // Get a writable database
