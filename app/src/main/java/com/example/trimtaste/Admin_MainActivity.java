@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class Admin_MainActivity extends AppCompatActivity {
 
@@ -24,7 +25,7 @@ public class Admin_MainActivity extends AppCompatActivity {
         imgBtnAddItems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Admin_MainActivity.this, Admin_AddRemobeItems.class));
+                startActivity(new Intent(Admin_MainActivity.this, Admin_AddRemoveItems.class));
             }
         });
 
@@ -52,6 +53,7 @@ public class Admin_MainActivity extends AppCompatActivity {
         imgBtnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(Admin_MainActivity.this,"You have successfully logged out",Toast.LENGTH_LONG).show();
                 startActivity(new Intent(Admin_MainActivity.this, Login.class));
             }
         });

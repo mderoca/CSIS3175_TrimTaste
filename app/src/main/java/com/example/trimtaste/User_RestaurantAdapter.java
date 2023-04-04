@@ -1,5 +1,6 @@
 package com.example.trimtaste;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,73 +11,64 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class User_RestaurantAdapter extends RecyclerView.Adapter {
-    Integer[] rData;
-    String[] restaurants;
+    Integer[] mData;
+    String[] animals;
+    LayoutInflater mInflater;
     ItemClickListener itemClickListener;
 
-
-    //Initialize the dataset of the Adapter
-    public User_RestaurantAdapter(Integer[] data, String[] res){
-        rData = data;
-        restaurants = res;
+    public User_RestaurantAdapter(Context context, Integer[] data, String[] anim){
+        mData = data;
+        animals = anim;
+        mInflater = LayoutInflater.from(context);
     }
 
-    Integer getItem(int id) {
-        return  rData[id];
+    Integer getItem(int id){
+        return mData[id];
     }
 
-    // Create new views (invoked by the layout manager)
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        // Create a new view, which defines the UI of the list item
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.list_item_restaurant,viewGroup,false);
-        return new ViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = mInflater.inflate(R.layout.recyclerview_item,parent,false);
+        ViewHolder viewHolder = new ViewHolder(view);
+        return viewHolder;
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((ViewHolder)holder).imageView.setImageResource(rData[position]);
-        ((ViewHolder)holder).textView.setText(restaurants[position]);
+        ((ViewHolder)holder).imageView.setImageResource(mData[position]);
+        ((ViewHolder)holder).textView.setText(animals[position]);
     }
 
-    // Return the size of dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return rData.length;
+        return mData.length;
     }
 
-
-    void setClickListener(ItemClickListener rItemClickListener) {
-        itemClickListener = rItemClickListener;
+    void setClickListener(ItemClickListener mItemClickListener){
+        itemClickListener = mItemClickListener;
     }
 
     public interface ItemClickListener{
         void onItemClick(View view, int position);
     }
 
-
     //inner class
     public class ViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
+            implements View.OnClickListener{
         ImageView imageView;
         TextView textView;
-
-        public ViewHolder(View itemView){
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imgRestaurant);
-            textView = itemView.findViewById(R.id.txtResName);
+            imageView = itemView.findViewById(R.id.imgSmall);
+            textView = itemView.findViewById(R.id.txt);
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            if(itemClickListener != null){
-                itemClickListener.onItemClick(view,getAdapterPosition());
-            }
+            if(itemClickListener!= null)
+                itemClickListener.onItemClick(view,getAbsoluteAdapterPosition());
         }
     }
-
 }
