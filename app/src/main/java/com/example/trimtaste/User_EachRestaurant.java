@@ -100,8 +100,9 @@ public class User_EachRestaurant extends AppCompatActivity
                 @Override
                 public void onClick(View view) {
                     String menuIdd = Integer.toString(menuId);
+                    String status = "Ordered";
                     db.addOrder(userId, menuItemResId, menuItemResId, menuIdd,
-                            menuItemName, " ", menuItemPrice);
+                            menuItemName, " ", menuItemPrice, status);
 
 
                 }

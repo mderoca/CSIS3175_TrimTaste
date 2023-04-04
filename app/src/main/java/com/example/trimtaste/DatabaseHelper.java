@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     final static String DATABASE_NAME = "FoodApp.db";
     final String[] food ={"Seafood Pizza \n $10.00", "Cajun Chicken Burger \n $12.00", "Stir-fry spaghetti \n $15.00", "Chicken&Celery \n $10.00", "pesto pasta \n $20.00"};
 
-    final static int DATABASE_VERSION = 6;
+    final static int DATABASE_VERSION = 7;
 
 
     //-------------------User Table --------------------
@@ -96,6 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     final static String T4COL_7 = "OpPickup";
 
     final static String T4COL_8 = "MenuItemPrice";
+    final static String T4COL_9 = "Status";
 
     private String nOrderNum;
     private String nItemName;
@@ -166,7 +167,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         String ordersTable = "CREATE TABLE " + TABLE4_NAME + " (" + T4COL_1 +
                 " INTEGER PRIMARY KEY AUTOINCREMENT, " + T4COL_2 + " TEXT, " + T4COL_3 + " TEXT, " +
                 T4COL_4 + " TEXT, " + T4COL_5 + " TEXT, " + T4COL_6 + " TEXT," + T4COL_7 + " TEXT," +
-                T4COL_8 + " TEXT," +
+                T4COL_8 + " TEXT," + T4COL_9 + " TEXT," +
                 "FOREIGN KEY(" + T4COL_2 + ") REFERENCES " + TABLE1_NAME + "(" + T1COL_1 + "), " +
                 "FOREIGN KEY(" + T4COL_3 + ") REFERENCES " + TABLE2_NAME + "(" + T2COL_1 + "), " +
                 "FOREIGN KEY(" + T4COL_4 + ") REFERENCES " + TABLE3_NAME + "(" + T3COL_1 + ")" +
@@ -507,7 +508,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
 
     public boolean addOrder(String userId, String orderNum, String restaurantId, String menuId,
-                            String menuItemName, String opPickup, String menuItemPrice) {
+                            String menuItemName, String opPickup, String menuItemPrice, String status) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(T4COL_2, userId);
@@ -517,6 +518,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         values.put(T4COL_6, menuId);
         values.put(T4COL_7, opPickup);
         values.put(T4COL_8, menuItemPrice);
+        values.put(T4COL_9, status);
 
         long l = db.insert(TABLE4_NAME, null, values);
         if (l > 0)
@@ -565,7 +567,8 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 T4COL_5,
                 //T4COL_6,
                 T4COL_7,
-                T4COL_8
+                T4COL_8,
+                T4COL_9
         };
 
         String selection = T4COL_3 + " = ?";
@@ -583,6 +586,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 //order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_6)) + ", ";
                 order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_7)) + ", ";
                 order += "Item Price: " + cursor.getString(cursor.getColumnIndexOrThrow(T4COL_8));
+                order += "Status: " + cursor.getString(cursor.getColumnIndexOrThrow(T4COL_9));
                 ordersList.add(order);
             } while (cursor.moveToNext());
         }
