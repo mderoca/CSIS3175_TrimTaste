@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,45 +31,86 @@ public class Admin_AddRemoveItems extends AppCompatActivity {
         // Initialize food items
         initFoodItems();
 
-        // Set up RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new FoodItemAdapter());
 
-        // Set up add button
         findViewById(R.id.btnAddItems).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle add button click
+                // Get menu items from the database
+                DatabaseHelper dbHelper = new DatabaseHelper(Admin_AddRemoveItems.this);
+                EditText restaurantIdEditText = findViewById(R.id.restaurantIdEditText);
+                String restaurantIdString = restaurantIdEditText.getText().toString();
+
+                if (!TextUtils.isEmpty(restaurantIdString)) {
+                    int enteredRestaurantId = Integer.parseInt(restaurantIdString);
+
+                    // Get menu items for the entered restaurant ID
+                    String[] menuItemNames = dbHelper.getMenuItems(enteredRestaurantId);
+
+                    // For each menu item, create a new FoodItem object and add it to the foodItems list
+                    for (String menuItemName : menuItemNames) {
+                        double menuItemPrice = dbHelper.getMenuItemPrice(menuItemName);
+                        FoodItem foodItem = new FoodItem(menuItemName, menuItemPrice);
+                        foodItems.add(foodItem);
+                    }
+
+                    // Set up RecyclerView
+                    RecyclerView recyclerView = findViewById(R.id.recyclerView);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(Admin_AddRemoveItems.this));
+                    recyclerView.setAdapter(new FoodItemAdapter());
+                }
             }
         });
     }
 
     private void initFoodItems() {
-        String[] food = {"Seafood Pizza \n $10.00", "Cajun Chicken Burger \n $12.00", "Stir-fry spaghetti \n $15.00", "Chicken&Celery \n $10.00", "pesto pasta \n $20.00"};
-        int[] images = {R.drawable.seafood_pizza, R.drawable.mock_res1_item1, R.drawable.mock_res1_item2, R.drawable.mock_res1_item3, R.drawable.mock_res1_item4};
+        // Get menu items from the database
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        EditText restaurantIdEditText = findViewById(R.id.restaurantIdEditText);
+        String restaurantIdString = restaurantIdEditText.getText().toString();
 
-        for (int i = 0; i < food.length; i++) {
-            FoodItem foodItem = new FoodItem();
-            foodItem.setText(food[i]);
-            foodItem.setImage(images[i]);
-            foodItems.add(foodItem);
+        if (!TextUtils.isEmpty(restaurantIdString)) {
+            int enteredRestaurantId = Integer.parseInt(restaurantIdString);
+
+            // Get menu items for the entered restaurant ID
+            String[] menuItemNames = dbHelper.getMenuItems(enteredRestaurantId);
+
+            // For each menu item, create a new FoodItem object and add it to the foodItems list
+            for (String menuItemName : menuItemNames) {
+                double menuItemPrice = dbHelper.getMenuItemPrice(menuItemName);
+                FoodItem foodItem = new FoodItem(menuItemName, menuItemPrice);
+                foodItems.add(foodItem);
+            }  // Set up RecyclerView
+            RecyclerView recyclerView = findViewById(R.id.recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(new FoodItemAdapter());
+
+
         }
     }
+
+
+
 
     private class FoodItemAdapter extends RecyclerView.Adapter<FoodItemViewHolder> {
 
         @Override
         public FoodItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-            return new FoodItemViewHolder(view);
+
+            View itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.food_item_row, parent, false);
+            return new FoodItemViewHolder(itemView);
+
         }
+
+
 
         @Override
         public void onBindViewHolder(FoodItemViewHolder holder, int position) {
+
             FoodItem foodItem = foodItems.get(position);
-            holder.imageView.setImageResource(foodItem.getImage());
             holder.textView.setText(foodItem.getText());
+            holder.txtPrice.setText(String.format("%.2f", foodItem.getPrice()));
+
         }
 
         @Override
@@ -80,11 +123,13 @@ public class Admin_AddRemoveItems extends AppCompatActivity {
 
         ImageView imageView;
         TextView textView;
+        TextView txtPrice; // declare txtPrice here
 
         public FoodItemViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.image);
             textView = itemView.findViewById(R.id.txtFoodItem);
+            txtPrice = itemView.findViewById(R.id.txtPrice); // initialize txtPrice here
             itemView.setOnClickListener(this);
         }
 
