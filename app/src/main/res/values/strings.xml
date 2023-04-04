@@ -162,5 +162,8 @@
     <string name="btnAddToOrder">Add to order</string>
     <string name="btnDeleteFromOrder">Delete from order</string>
     <string name="hintResaurantId">"Type your Restaurant ID "</string>
+    <string name="btnSearch">Search</string>
+    <string name="editTextName">Item name</string>
+    <string name="EditTexrPrice">item Price</string>
 
 </resources>

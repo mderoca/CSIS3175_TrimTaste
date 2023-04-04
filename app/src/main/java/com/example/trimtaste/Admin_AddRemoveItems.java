@@ -21,18 +21,20 @@ import java.util.List;
 
 public class Admin_AddRemoveItems extends AppCompatActivity {
 
+
     private List<FoodItem> foodItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_add_remove_food_items);
+        Button btnList = findViewById(R.id.btnSearch);
         Button btnAddItems = findViewById(R.id.btnAddItems);
         // Initialize food items
         initFoodItems();
 
 
-        findViewById(R.id.btnAddItems).setOnClickListener(new View.OnClickListener() {
+        btnList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Get menu items from the database
@@ -42,6 +44,9 @@ public class Admin_AddRemoveItems extends AppCompatActivity {
 
                 if (!TextUtils.isEmpty(restaurantIdString)) {
                     int enteredRestaurantId = Integer.parseInt(restaurantIdString);
+
+                    // Clear previous food items
+                    foodItems.clear();
 
                     // Get menu items for the entered restaurant ID
                     String[] menuItemNames = dbHelper.getMenuItems(enteredRestaurantId);
@@ -60,6 +65,35 @@ public class Admin_AddRemoveItems extends AppCompatActivity {
                 }
             }
         });
+
+        findViewById(R.id.btnAddItems).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText itemNameEditText = findViewById(R.id.itemNameEditText);
+                EditText itemPriceEditText = findViewById(R.id.itemPriceEditText);
+                String itemName = itemNameEditText.getText().toString();
+                String itemPriceString = itemPriceEditText.getText().toString();
+
+                if (!TextUtils.isEmpty(itemName) && !TextUtils.isEmpty(itemPriceString)) {
+                    double itemPrice = Double.parseDouble(itemPriceString);
+                    // Add the new FoodItem object to the foodItems list
+                    FoodItem newFoodItem = new FoodItem(itemName, itemPrice);
+                    foodItems.add(newFoodItem);
+                    // Add the new menu item to the database
+                    DatabaseHelper dbHelper = new DatabaseHelper(Admin_AddRemoveItems.this);
+                    EditText restaurantIdEditText = findViewById(R.id.restaurantIdEditText);
+                    String restaurantIdString = restaurantIdEditText.getText().toString();
+                    if (!TextUtils.isEmpty(restaurantIdString)) {
+                        int enteredRestaurantId = Integer.parseInt(restaurantIdString);
+                        dbHelper.addMenuItem(enteredRestaurantId, itemName, itemPrice);
+                    }
+                    // Notify the adapter that the data set has changed
+                    RecyclerView recyclerView = findViewById(R.id.recyclerView);
+                    recyclerView.getAdapter().notifyDataSetChanged();
+                }
+            }
+        });
+
     }
 
     private void initFoodItems() {

@@ -193,6 +193,16 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS " + TABLE1_NAME);
         onCreate(db);
     }
+    public void addMenuItem(int restaurantId, String itemName, double itemPrice) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("restaurant_id", restaurantId);
+        values.put("name", itemName);
+        values.put("price", itemPrice);
+        db.insert("menu_items", null, values);
+        db.close();
+    }
+
 
     public boolean addData(String street, String city, String province, String postalCode,
                            String email, String phoneNum,
