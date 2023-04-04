@@ -110,7 +110,8 @@ public class User_ConfirmOrder extends AppCompatActivity
                         //Toast.makeText(this, "NOT UPDATED", Toast.LENGTH_SHORT).show();
                     }
                 }
-                startActivity(new Intent(User_ConfirmOrder.this, Usser_History.class));
+                Toast.makeText(User_ConfirmOrder.this, "Order Placed!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(User_ConfirmOrder.this, User_MainActivity.class));
             }
         });
 

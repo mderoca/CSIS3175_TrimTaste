@@ -563,7 +563,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 T4COL_3,
                 T4COL_4,
                 T4COL_5,
-                T4COL_6,
+                //T4COL_6,
                 T4COL_7,
                 T4COL_8
         };
@@ -577,12 +577,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 String order = "";
                 //order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_1)) + ", ";
                 //order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_2)) + ", ";
-                order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_3)) + ", ";
-                order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_4)) + ", ";
-                order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_5)) + ", ";
-                order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_6)) + ", ";
+                order += "Order Number: " + cursor.getString(cursor.getColumnIndexOrThrow(T4COL_3)) + ", ";
+                order += "Item name: " + cursor.getString(cursor.getColumnIndexOrThrow(T4COL_4)) + ", ";
+                order += "Restaurant ID: " + cursor.getString(cursor.getColumnIndexOrThrow(T4COL_5)) + ", ";
+                //order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_6)) + ", ";
                 order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_7)) + ", ";
-                order += cursor.getString(cursor.getColumnIndexOrThrow(T4COL_8));
+                order += "Item Price: " + cursor.getString(cursor.getColumnIndexOrThrow(T4COL_8));
                 ordersList.add(order);
             } while (cursor.moveToNext());
         }
@@ -590,6 +590,25 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         cursor.close();
         db.close();
         return ordersList;
+    }
+
+    public List<String> getOrderNumbers() {
+        List<String> orderNumbers = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT DISTINCT OrderNumber FROM " + TABLE4_NAME, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String orderNumber = cursor.getString(cursor.getColumnIndexOrThrow(T4COL_3));
+                orderNumbers.add(orderNumber);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return orderNumbers;
     }
 
 
